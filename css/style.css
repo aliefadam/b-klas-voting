@@ -1,0 +1,32 @@
+:root {
+  --warna1: #102c57;
+  --warna2: #dac0a3;
+  --warna3: #eadbc8;
+  --warna4: #f8f0e5;
+}
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--warna4);
+}
+
+nav {
+  background-color: var(--warna1) !important;
+}
+
+.container.kotak {
+  height: 100vh;
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

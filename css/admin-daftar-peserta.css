@@ -1,0 +1,64 @@
+@import url("style.css");
+
+.daftar-peserta {
+  display: flex;
+  padding: 30px;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  background-color: var(--warna2);
+  color: white;
+  border-radius: 20px;
+}
+
+.daftar-peserta {
+  width: 100%;
+  height: 80vh;
+}
+
+.daftar-peserta .scroll {
+  padding: 0 10px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.daftar-peserta .scroll table thead tr th {
+  color: white;
+  background-color: black;
+}
+
+.daftar-peserta .scroll table tbody tr td.img img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* Width and Height of the scrollbar track */
+::-webkit-scrollbar {
+  border-radius: 20px;
+  width: 10px;
+  height: 10px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background: #f1f1f1;
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Hover state on Thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Scrollbar Button (arrows) */
+::-webkit-scrollbar-button {
+  display: none; /* Hide scrollbar buttons */
+}
