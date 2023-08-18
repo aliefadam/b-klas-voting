@@ -57,44 +57,40 @@
     <div class="container kotak">
         <div class="daftar-peserta">
             <h1>Daftar Peserta</h1>
-            <div class="scroll mt-4">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Peserta</th>
-                            <th>Dasa Wisma</th>
-                            <th>Judul Penampilan</th>
-                            <th>Foto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $no = 1; ?>
-                        <?php foreach (daftarPeserta() as $peserta): ?>
-                            <tr>
-                                <td>
-                                    <?= $no++ ?>
-                                </td>
-                                <td>
-                                    <?= $peserta['nama'] ?>
-                                </td>
-                                <td>
-                                    <?= $peserta['dawis'] ?>
-                                </td>
-                                <td>
-                                    <?= $peserta['penampilan'] ?>
-                                </td>
-                                <td class="img">
-                                    <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+            <div class="scroll">
+                <?php foreach (daftarPeserta() as $peserta): ?>
+                    <?php
+                    $foto = $peserta['foto'];
+                    $nama = $peserta['nama'];
+                    $dawis = $peserta['dawis'];
+
+                    ?>
+                    <div class="box" onclick="buka()">
+                        <div class="gambar">
+                            <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
+                        </div>
+                        <div class="deskripsi">
+                            <h3>
+                                <?= $peserta['nama'] ?>
+                            </h3>
+                            <p>Dawis
+                                <?= $peserta['dawis'] ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endforeach ?>
             </div>
         </div>
     </div>
     <!-- akhir content -->
+
+    <!-- detail peserta -->
+    <div class="overlay">
+        <div class="detail">
+
+        </div>
+    </div>
+    <!-- akhir detail peserta -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
