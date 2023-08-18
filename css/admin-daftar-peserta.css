@@ -105,3 +105,20 @@
 ::-webkit-scrollbar-button {
   display: none; /* Hide scrollbar buttons */
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.overlay .detail {
+  border: 1px solid red;
+  padding: 50px;
+}

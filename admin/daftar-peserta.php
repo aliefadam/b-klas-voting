@@ -63,9 +63,9 @@
                     $foto = $peserta['foto'];
                     $nama = $peserta['nama'];
                     $dawis = $peserta['dawis'];
-
+                    $penampilan = $peserta['penampilan'];
                     ?>
-                    <div class="box" onclick="buka()">
+                    <div class="box" onclick="buka('<?= $foto ?>', '<?= $nama ?>', '<?= $dawis ?>', '<?= $penampilan ?>')">
                         <div class="gambar">
                             <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
                         </div>
@@ -85,12 +85,40 @@
     <!-- akhir content -->
 
     <!-- detail peserta -->
-    <div class="overlay">
+    <div class="overlay" style="display: none">
         <div class="detail">
-
+            <img class="fotoOverlay" src="" alt="">
+            <h1 class="namaOverlay"></h1>
+            <h2 class="penampilanOverlay">Judul Penampilan</h2>
+            <h3 class="dawisOverlay">Dawis</h3>
         </div>
     </div>
     <!-- akhir detail peserta -->
+
+    <script>
+        let foto = "";
+        let nama = "";
+        let dawis = "";
+        let penampilan = "";
+
+        const overlay = document.querySelector('.overlay');
+        let fotoSelect = document.querySelector('.fotoOverlay');
+        let namaSelect = document.querySelector('.namaOverlay');
+        let penampilanSelect = document.querySelector('.penampilanOverlay');
+        let dawisSelect = document.querySelector('.dawisOverlay');
+
+        function buka(fotoUser, namaUser, dawisUser, penampilanUser) {
+            foto = fotoUser;
+            nama = namaUser;
+            dawis = dawisUser;
+            penampilan = penampilanUser;
+            overlay.style.display = "flex";
+
+            fotoSelect.src = "../gambar-upload/" + foto;
+            namaSelect.innerHTML = nama;
+
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
