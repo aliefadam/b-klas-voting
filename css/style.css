@@ -1,8 +1,10 @@
 :root {
-  --warna1: #102c57;
-  --warna2: #dac0a3;
+  /* --warna1: #557a46; */
+  --warna1: #8c3333;
+  --warna2: #557a46;
   --warna3: #eadbc8;
-  --warna4: #f8f0e5;
+  --warna4: #f2ee9d;
+  --temp: #f2ee9d;
 }
 
 html,
