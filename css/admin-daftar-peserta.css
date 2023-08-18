@@ -62,3 +62,23 @@
 ::-webkit-scrollbar-button {
   display: none; /* Hide scrollbar buttons */
 }
+
+@media only screen and (max-width:425px){
+  .daftar-peserta{
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  .daftar-peserta .scroll{
+    flex-direction: row;
+  }
+
+  .daftar-peserta .scroll .box {
+    width: 43%;
+    height: 45vw;
+  }
+
+  .daftar-peserta .scroll .box .deskripsi h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+} 
