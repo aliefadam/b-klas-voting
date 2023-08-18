@@ -59,7 +59,13 @@
             <h1>Daftar Peserta</h1>
             <div class="scroll">
                 <?php foreach (daftarPeserta() as $peserta): ?>
-                    <div class="box">
+                    <?php
+                    $foto = $peserta['foto'];
+                    $nama = $peserta['nama'];
+                    $dawis = $peserta['dawis'];
+
+                    ?>
+                    <div class="box" onclick="buka()">
                         <div class="gambar">
                             <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
                         </div>
