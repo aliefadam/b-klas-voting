@@ -119,6 +119,16 @@
 }
 
 .overlay .detail {
-  border: 1px solid red;
+  background-color: var(--warna2);
   padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.overlay .detail img {
+  width: 50%;
+  height: 400px;
+  object-fit: cover;
 }
