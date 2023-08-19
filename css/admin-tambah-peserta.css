@@ -9,6 +9,7 @@
     background-color: var(--warna3);
     color: white;
     border-radius: 20px;
+    overflow-y: auto;
 }
 
 .form form {
@@ -26,6 +27,7 @@
 @media only screen and (max-width: 425px) {
     .form {
         width: 90%;
+        min-height: 400px;
         height: 75%;
     }
 
