@@ -1,35 +1,35 @@
 @import url("style.css");
 
 .form {
-  display: flex;
-  padding: 30px;
-  align-items: center;
-  flex-direction: column;
-  width: 60%;
-  background-color: var(--warna2);
-  color: white;
-  border-radius: 20px;
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    background-color: var(--warna3);
+    color: white;
+    border-radius: 20px;
 }
 
 .form form {
-  width: 100%;
+    width: 100%;
 }
 
 .form form .btn.btn-tambah {
-  margin: 0 auto;
-  display: block;
-  width: 40%;
-  color: white;
-  background-color: var(--warna1);
+    margin: 0 auto;
+    display: block;
+    width: 40%;
+    color: white;
+    background-color: var(--warna1);
 }
 
-@media only screen and (max-width:425px){
-  .form{
-    width: 90%;
-    height: 75%;
-  }
+@media only screen and (max-width: 425px) {
+    .form {
+        width: 90%;
+        height: 75%;
+    }
 
-  .form-label{
-    margin-bottom: 5px;
-  }
+    .form-label {
+        margin-bottom: 5px;
+    }
 }

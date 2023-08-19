@@ -43,9 +43,29 @@ function daftarPeserta()
     return $rows;
 }
 
+function hapus($nama)
+{
+    global $koneksi;
+
+    $query = "DELETE FROM peserta WHERE nama = ?";
+    $stmt = $koneksi->prepare($query);
+
+    $stmt->bind_param("s", $nama);
+    $stmt->execute();
+
+    header('Location: ../admin/daftar-peserta.php');
+}
+
 if (isset($_POST['tambah-peserta'])) {
     tambahPeserta($_POST, $_FILES);
 }
+
+if (isset($_GET['nama-hapus'])) {
+    $nama = $_GET['nama-hapus'];
+    hapus($nama);
+}
+
+
 
 
 ?>

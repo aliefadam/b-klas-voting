@@ -12,6 +12,9 @@
     <!-- css -->
     <link rel="stylesheet" href="../css/admin-daftar-peserta.css">
 
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,13 +68,16 @@
                     $dawis = $peserta['dawis'];
                     $penampilan = $peserta['penampilan'];
                     ?>
-                    <div class="box" onclick="buka('<?= $foto ?>', '<?= $nama ?>', '<?= $dawis ?>', '<?= $penampilan ?>')">
+                    <div class="box" onclick="buka('<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
                         <div class="gambar">
                             <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
                         </div>
                         <div class="deskripsi">
                             <h3>
-                                <?= $peserta['nama'] ?>
+                                <?php $nama = $peserta['nama']; ?>
+                                <?=
+                                    $namaDepan = explode(' ', $nama)[0];
+                                ?>
                             </h3>
                             <p>Dawis
                                 <?= $peserta['dawis'] ?>
@@ -85,12 +91,15 @@
     <!-- akhir content -->
 
     <!-- detail peserta -->
-    <div class="overlay" style="display: none">
-        <div class="detail">
+    <div class="overlay animate__animated animate__fadeIn" style="display: none">
+        <div class="detail animate__animated animate__pulse">
+            <i class="bi bi-x-circle" onclick="tutup()"></i>
+            <i class="sampah bi bi-trash" onclick="hapus()"></i>
+            <i class="edit bi bi-pencil-square" onclick="edit()"></i>
             <img class="fotoOverlay" src="" alt="">
             <h1 class="namaOverlay"></h1>
-            <h2 class="penampilanOverlay">Judul Penampilan</h2>
             <h3 class="dawisOverlay">Dawis</h3>
+            <h2 class="penampilanOverlay mt-4">Judul Penampilan</h2>
         </div>
     </div>
     <!-- akhir detail peserta -->
@@ -108,15 +117,28 @@
         let dawisSelect = document.querySelector('.dawisOverlay');
 
         function buka(fotoUser, namaUser, dawisUser, penampilanUser) {
+            console.log(fotoUser);
             foto = fotoUser;
             nama = namaUser;
             dawis = dawisUser;
             penampilan = penampilanUser;
-            overlay.style.display = "flex";
+
 
             fotoSelect.src = "../gambar-upload/" + foto;
             namaSelect.innerHTML = nama;
+            penampilanSelect.innerHTML = `"${penampilan}"`;
+            dawisSelect.innerHTML = "Dawis " + dawis;
 
+            overlay.style.display = "flex";
+
+        }
+
+        function tutup() {
+            overlay.style.display = "none";
+        }
+
+        function hapus() {
+            window.location.href = "../functions/index.php?nama-hapus=" + nama;
         }
     </script>
 

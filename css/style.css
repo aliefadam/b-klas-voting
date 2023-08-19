@@ -1,35 +1,38 @@
 :root {
-  /* --warna1: #557a46; */
-  --warna1: #8c3333;
-  --warna2: #557a46;
-  --warna3: #eadbc8;
-  --warna4: #f2ee9d;
-  --temp: #f2ee9d;
+    /* --warna1: #557a46; */
+    /* --warna1: #8c3333; */
+    --warna1: #212a3e;
+    --warna2: #394867;
+    /* --warna3: #eadbc8; */
+    --warna3: #9ba4b5;
+    /* --warna4: #f2ee9d; */
+    --warna4: #f1f6f9;
+    --temp: #f2ee9d;
 }
 
 html,
 body,
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: var(--warna4);
-  position: relative;
+    font-family: "Poppins", sans-serif;
+    background-color: var(--warna4);
+    position: relative;
 }
 
 nav {
-  background-color: var(--warna1) !important;
+    background-color: var(--warna1) !important;
 }
 
 .container.kotak {
-  height: 100vh;
-  padding-top: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    height: 100vh;
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
