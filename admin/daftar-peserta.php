@@ -104,6 +104,20 @@
     </div>
     <!-- akhir detail peserta -->
 
+    <!-- edit peserta -->
+    <div class="edit animate__animated animate__fadeIn">
+        <div class="wrap animate__animated animate__pulse">
+            <h2>Edit Peserta</h2>
+            <form action="" method="POST">
+                <label for="editNama">Nama: </label><input type="text" name="nama" id="editNama">
+                <label for="editDawis">Dawis: </label><input type="number" name="dawis" id="editDawis">
+                <label for="editPenampilan">Penampilan: </label><input type="text" name="penampilan" id="editPenampilan">
+                <label for="editGambar">Foto: </label><input type="file" name="foto" id="editfoto">
+                <button type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         let foto = "";
         let nama = "";
@@ -139,6 +153,12 @@
 
         function hapus() {
             window.location.href = "../functions/index.php?nama-hapus=" + nama;
+        }
+
+        function edit() {
+            tutup();
+
+            
         }
     </script>
 
