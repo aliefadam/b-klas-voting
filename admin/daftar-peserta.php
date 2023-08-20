@@ -1,7 +1,7 @@
 <!doctype html>
 <?php include('../functions/index.php') ?>
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 <html lang="en">
 
@@ -114,12 +114,26 @@
             <h2>Edit Peserta</h2>
             <i class="bi bi-x-circle" onclick="tutup('edit')"></i>
             <form action="" method="POST">
-                <label for="editNama">Nama: </label><input type="text" name="nama" id="editNama">
-                <label for="editDawis">Dawis: </label><input type="number" name="dawis" id="editDawis">
-                <label for="editPenampilan">Penampilan: </label><input type="text" name="penampilan" id="editPenampilan">
-                <label for="editGambar">Foto: </label><input type="file" name="foto" id="editfoto">
-                <button type="submit" name="edit">Edit</button>
-                
+                <div class="mt-3">
+                    <label class="form-label" for="editNama">Nama: </label>
+                    <input class="form-control" type="text" name="nama" id="editNama">
+                </div>
+                <div class="mt-3">
+                    <label class="form-label" for="editDawis">Dawis: </label>
+                    <input class="form-control" type="number" name="dawis" id="editDawis">
+                </div>
+                <div class="mt-3">
+                    <label class="form-label" for="editPenampilan">Penampilan: </label>
+                    <input class="form-control" type="text" name="penampilan" id="editPenampilan">
+                </div>
+                <div class="mt-3 foto">
+                    <label class="form-label" for="editFoto">Foto: </label>
+                    <img class="mb-3" id="fotoLama" src="" alt="">
+                    <input class="form-control" type="file" name="foto" id="editFoto">
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary" type="submit" name="edit">Edit</button>
+                </div>
             </form>
         </div>
     </div>
@@ -129,21 +143,19 @@
         let nama = "";
         let dawis = "";
         let penampilan = "";
-        let element;
 
         const overlay = document.querySelector('.overlay');
         let fotoSelect = document.querySelector('.fotoOverlay');
         let namaSelect = document.querySelector('.namaOverlay');
         let penampilanSelect = document.querySelector('.penampilanOverlay');
         let dawisSelect = document.querySelector('.dawisOverlay');
-        let editPeserta =document.querySelector('.editPeserta');
+        let editPeserta = document.querySelector('.editPeserta');
 
         function buka(fotoUser, namaUser, dawisUser, penampilanUser) {
             foto = fotoUser;
             nama = namaUser;
             dawis = dawisUser;
             penampilan = penampilanUser;
-
 
             fotoSelect.src = "../gambar-upload/" + foto;
             namaSelect.innerHTML = nama;
@@ -155,7 +167,7 @@
         }
 
         function tutup(type) {
-            if(type == "overlay") {
+            if (type == "overlay") {
                 overlay.style.display = "none";
             } else {
                 overlay.style.display = "flex";
@@ -163,26 +175,25 @@
             }
         }
 
-
         function hapus() {
             window.location.href = "../functions/index.php?nama-hapus=" + nama;
         }
 
         function edit() {
             overlay.style.display = "none";
-            nama = overlay.querySelector(".detail").querySelector(".namaOverlay").innerHTML;
-            dawis = overlay.querySelector(".detail").querySelector(".dawisOverlay").innerHTML;
-            penampilan = overlay.querySelector(".detail").querySelector(".penampilanOverlay").innerHTML;
-            dawis = parseInt(dawis.slice(6));
-            penampilan = penampilan.slice(1,-1);
 
-            editPeserta.querySelector('.wrap').querySelector('#editNama').setAttribute('value', nama);
-            editPeserta.querySelector('.wrap').querySelector('#editDawis').setAttribute('value', dawis);
-            editPeserta.querySelector('.wrap').querySelector('#editPenampilan').setAttribute('value', penampilan);
-            
+            let editNama = document.getElementById('editNama');
+            let editDawis = document.getElementById('editDawis');
+            let editPenampilan = document.getElementById('editPenampilan');
+            let fotoLama = document.getElementById('fotoLama');
+
+            editNama.value = nama;
+            editDawis.value = dawis;
+            editPenampilan.value = penampilan;
+            fotoLama.src = "../gambar-upload/" + foto;
             editPeserta.style.display = "flex";
 
-            
+
         }
     </script>
 
