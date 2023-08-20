@@ -56,6 +56,23 @@ function hapus($nama)
     header('Location: ../admin/daftar-peserta.php');
 }
 
+function edit() {
+    // aksi database
+    session_start();
+    $nama = $_POST["nama"];
+    $dawis = $_POST["dawis"];
+    $penampilan = $_POST["penampilan"];
+    $foto = $_POST["foto"];
+
+    $_SESSION["nama"] = $nama;
+    $_SESSION["dawis"] = $dawis;
+    $_SESSION["penampilan"] = $penampilan;
+    $_SESSION["foto"] = $foto;
+
+    header('Location: ../admin/daftar-peserta.php');
+
+}
+
 if (isset($_POST['tambah-peserta'])) {
     tambahPeserta($_POST, $_FILES);
 }
@@ -63,6 +80,10 @@ if (isset($_POST['tambah-peserta'])) {
 if (isset($_GET['nama-hapus'])) {
     $nama = $_GET['nama-hapus'];
     hapus($nama);
+}
+
+if(isset($_POST['edit'])) {
+    edit();
 }
 
 

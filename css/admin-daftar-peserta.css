@@ -106,7 +106,7 @@
 .overlay {
     position: absolute;
     top: 0;
-    z-index: 999;
+    z-index: 99999;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -128,7 +128,7 @@
     border: 3px solid white;
 }
 
-.overlay .detail i {
+.overlay .detail i, .editPeserta .wrap i{
     color: white;
     font-size: 40px;
     cursor: pointer;
@@ -195,10 +195,10 @@
   margin-top: 1.5rem;
 }
 
-.edit{
+.editPeserta{
     position: absolute;
     top: 0;
-    z-index: 9999;
+    z-index: 99999;
     width: 100%;
     height: 100vh;
     display: none;
@@ -207,7 +207,7 @@
     background-color: rgba(0, 0, 0, 0.9);
 }
 
-.edit .wrap{
+.editPeserta .wrap{
     width: 40%;
     height: 80vh;
     display: flex;
@@ -218,7 +218,7 @@
     border-radius: 15px;
 }
 
-.edit .wrap form{
+.editPeserta .wrap form{
     width: 100%;
     height: 100%;
     display: flex;
@@ -226,15 +226,15 @@
     font-size: 12px;
 }
 
-.edit .wrap form input{
+.editPeserta .wrap form input{
     margin-top: 5px;
     width: 100%;
     height: 10%;
 }
-.edit .wrap form label{
+.editPeserta .wrap form label{
     margin-top: 10px;
 }
-.edit .wrap form button{
+.editPeserta .wrap form button{
     margin-top: 20px;
 }
 
