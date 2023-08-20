@@ -1,8 +1,12 @@
 <!doctype html>
 <?php include('../functions/index.php') ?>
+<?php 
+    session_start();
+?>
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>B-KLAS GOT TALENTS | DAFTAR PESERTA</title>
@@ -93,7 +97,7 @@
     <!-- detail peserta -->
     <div class="overlay animate__animated animate__fadeIn" style="display: none">
         <div class="detail animate__animated animate__pulse">
-            <i class="bi bi-x-circle" onclick="tutup()"></i>
+            <i class="bi bi-x-circle" onclick="tutup('overlay')"></i>
             <i class="sampah bi bi-trash" onclick="hapus()"></i>
             <i class="edit bi bi-pencil-square" onclick="edit()"></i>
             <img class="fotoOverlay" src="" alt="">
@@ -104,20 +108,37 @@
     </div>
     <!-- akhir detail peserta -->
 
+    <!-- edit peserta -->
+    <div class="editPeserta animate__animated animate__fadeIn">
+        <div class="wrap animate__animated animate__pulse">
+            <h2>Edit Peserta</h2>
+            <i class="bi bi-x-circle" onclick="tutup('edit')"></i>
+            <form action="" method="POST">
+                <label for="editNama">Nama: </label><input type="text" name="nama" id="editNama">
+                <label for="editDawis">Dawis: </label><input type="number" name="dawis" id="editDawis">
+                <label for="editPenampilan">Penampilan: </label><input type="text" name="penampilan" id="editPenampilan">
+                <label for="editGambar">Foto: </label><input type="file" name="foto" id="editfoto">
+                <button type="submit" name="edit">Edit</button>
+                
+            </form>
+        </div>
+    </div>
+
     <script>
         let foto = "";
         let nama = "";
         let dawis = "";
         let penampilan = "";
+        let element;
 
         const overlay = document.querySelector('.overlay');
         let fotoSelect = document.querySelector('.fotoOverlay');
         let namaSelect = document.querySelector('.namaOverlay');
         let penampilanSelect = document.querySelector('.penampilanOverlay');
         let dawisSelect = document.querySelector('.dawisOverlay');
+        let editPeserta =document.querySelector('.editPeserta');
 
         function buka(fotoUser, namaUser, dawisUser, penampilanUser) {
-            console.log(fotoUser);
             foto = fotoUser;
             nama = namaUser;
             dawis = dawisUser;
@@ -133,12 +154,35 @@
 
         }
 
-        function tutup() {
-            overlay.style.display = "none";
+        function tutup(type) {
+            if(type == "overlay") {
+                overlay.style.display = "none";
+            } else {
+                overlay.style.display = "flex";
+                editPeserta.style.display = "none";
+            }
         }
+
 
         function hapus() {
             window.location.href = "../functions/index.php?nama-hapus=" + nama;
+        }
+
+        function edit() {
+            overlay.style.display = "none";
+            nama = overlay.querySelector(".detail").querySelector(".namaOverlay").innerHTML;
+            dawis = overlay.querySelector(".detail").querySelector(".dawisOverlay").innerHTML;
+            penampilan = overlay.querySelector(".detail").querySelector(".penampilanOverlay").innerHTML;
+            dawis = parseInt(dawis.slice(6));
+            penampilan = penampilan.slice(1,-1);
+
+            editPeserta.querySelector('.wrap').querySelector('#editNama').setAttribute('value', nama);
+            editPeserta.querySelector('.wrap').querySelector('#editDawis').setAttribute('value', dawis);
+            editPeserta.querySelector('.wrap').querySelector('#editPenampilan').setAttribute('value', penampilan);
+            
+            editPeserta.style.display = "flex";
+
+            
         }
     </script>
 

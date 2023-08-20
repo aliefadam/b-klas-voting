@@ -128,7 +128,7 @@
     border: 3px solid white;
 }
 
-.overlay .detail i {
+.overlay .detail i, .editPeserta .wrap i{
     color: white;
     font-size: 40px;
     cursor: pointer;
@@ -193,6 +193,49 @@
 }
 .overlay .detail h2{
   margin-top: 1.5rem;
+}
+
+.editPeserta{
+    position: absolute;
+    top: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.editPeserta .wrap{
+    width: 40%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--warna2);
+    padding: 3% 5%;
+    color: white;
+    border-radius: 15px;
+}
+
+.editPeserta .wrap form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.editPeserta .wrap form input{
+    margin-top: 5px;
+    width: 100%;
+    height: 10%;
+}
+.editPeserta .wrap form label{
+    margin-top: 10px;
+}
+.editPeserta .wrap form button{
+    margin-top: 20px;
 }
 
 @media only screen and (max-width: 425px) {
