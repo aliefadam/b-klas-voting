@@ -182,14 +182,17 @@
     margin-bottom: 0;
     color: white;
 }
-.overlay .detail .penampilanOverlay {
+.overlay .detail .penampilanOverlay{
     text-transform: uppercase;
     color: white;
 }
 .overlay .detail .dawisOverlay {
-    font-size: 25px;
+
     margin-top: 5px;
     color: white;
+}
+.overlay .detail h2{
+  margin-top: 1.5rem;
 }
 
 @media only screen and (max-width: 425px) {
@@ -213,5 +216,29 @@
     .daftar-peserta .scroll .box .deskripsi p {
         margin: 0;
         font-size: 13px;
+    }
+
+    .overlay .detail{
+      width: 85%;
+      height: 60%;
+      padding: 10%;
+    }
+
+    .overlay .detail img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+  }
+
+    .overlay .detail h1{
+      font-size: calc(1.3rem + 1.4vw);
+    }
+    .overlay .detail h3{
+      font-size: calc(1rem + 0.8vw);
+    }
+    .overlay .detail h2{
+      font-size: calc(1.3rem + 1vw);
+      margin-top: 3%;
     }
 }

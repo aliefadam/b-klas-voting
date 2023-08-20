@@ -99,7 +99,7 @@
             <img class="fotoOverlay" src="" alt="">
             <h1 class="namaOverlay"></h1>
             <h3 class="dawisOverlay">Dawis</h3>
-            <h2 class="penampilanOverlay mt-4">Judul Penampilan</h2>
+            <h2 class="penampilanOverlay">Judul Penampilan</h2>
         </div>
     </div>
     <!-- akhir detail peserta -->
