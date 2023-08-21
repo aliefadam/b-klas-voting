@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="index.php">Penampilan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="tambah-peserta.php">Tambah Peserta</a>
@@ -56,7 +56,6 @@
     <div class="container kotak">
         <div class="form">
             <h1>Tambah Peserta</h1>
-
             <form action="../functions/index.php" method="post" enctype="multipart/form-data">
                 <div class="mt-2">
                     <label for="nama" class="form-label">Nama Peserta</label>

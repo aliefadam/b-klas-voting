@@ -110,6 +110,12 @@ function edit($data)
 
 }
 
+function tampilkanPeserta($id)
+{
+    header('Location: ../admin/index.php');
+
+}
+
 if (isset($_POST['tambah-peserta'])) {
     tambahPeserta($_POST, $_FILES);
 }
@@ -121,6 +127,10 @@ if (isset($_GET['nama-hapus'])) {
 
 if (isset($_POST['edit'])) {
     edit($_POST);
+}
+
+if (isset($_GET['id'])) {
+    tampilkanPeserta($_GET['id']);
 }
 
 
