@@ -1,8 +1,5 @@
 <!doctype html>
 <?php include('../functions/index.php') ?>
-<?php
-session_start();
-?>
 <html lang="en">
 
 <head>
@@ -67,12 +64,14 @@ session_start();
             <div class="scroll">
                 <?php foreach (daftarPeserta() as $peserta): ?>
                     <?php
+                    $id = $peserta['id'];
                     $foto = $peserta['foto'];
                     $nama = $peserta['nama'];
                     $dawis = $peserta['dawis'];
                     $penampilan = $peserta['penampilan'];
                     ?>
-                    <div class="box" onclick="buka('<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
+                    <div class="box"
+                        onclick="buka('<?= $id ?>','<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
                         <div class="gambar">
                             <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
                         </div>
@@ -113,7 +112,8 @@ session_start();
         <div class="wrap animate__animated animate__pulse">
             <h2>Edit Peserta</h2>
             <i class="bi bi-x-circle" onclick="tutup('edit')"></i>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="editId">
                 <div class="mt-3">
                     <label class="form-label" for="editNama">Nama: </label>
                     <input class="form-control" type="text" name="nama" id="editNama">
@@ -139,6 +139,7 @@ session_start();
     </div>
 
     <script>
+        let id = "";
         let foto = "";
         let nama = "";
         let dawis = "";
@@ -151,7 +152,8 @@ session_start();
         let dawisSelect = document.querySelector('.dawisOverlay');
         let editPeserta = document.querySelector('.editPeserta');
 
-        function buka(fotoUser, namaUser, dawisUser, penampilanUser) {
+        function buka(idUser, fotoUser, namaUser, dawisUser, penampilanUser) {
+            id = idUser;
             foto = fotoUser;
             nama = namaUser;
             dawis = dawisUser;
@@ -182,17 +184,18 @@ session_start();
         function edit() {
             overlay.style.display = "none";
 
+            let editId = document.getElementById('editId');
             let editNama = document.getElementById('editNama');
             let editDawis = document.getElementById('editDawis');
             let editPenampilan = document.getElementById('editPenampilan');
             let fotoLama = document.getElementById('fotoLama');
 
+            editId.value = id;
             editNama.value = nama;
             editDawis.value = dawis;
             editPenampilan.value = penampilan;
             fotoLama.src = "../gambar-upload/" + foto;
             editPeserta.style.display = "flex";
-
 
         }
     </script>
