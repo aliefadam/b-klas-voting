@@ -46,7 +46,6 @@ function daftarPeserta()
 function hapus($nama)
 {
     global $koneksi;
-
     // Mengambil nama file gambar dari database
     $query = "SELECT foto FROM peserta WHERE nama = ?";
     $stmt = $koneksi->prepare($query);
