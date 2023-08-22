@@ -60,8 +60,37 @@
     <!-- content -->
     <div class="container kotak">
         <div class="penampilan">
-            <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
-            <button type="button" class="btn tampilkan" onclick="buka('overlay')">Tampilkan Peserta</button>
+            <?php if (!empty(getPesertaDitampilkan())): ?>
+                <?php if (getPesertaDitampilkan()['status'] == "Sedang ditampilkan"): ?>
+                    <?php
+                    $id = getPesertaDitampilkan()['id'];
+                    $nama = getPesertaDitampilkan()['nama'];
+                    $dawis = getPesertaDitampilkan()['dawis'];
+                    $penampilan = getPesertaDitampilkan()['penampilan'];
+                    $foto = getPesertaDitampilkan()['foto'];
+                    ?>
+                    <!-- jika ada peserta yang tampil -->
+                    <div class="keterangan">
+                        <p><i class="bi bi-circle-fill me-2"></i>Sedang Tampil</p>
+                        <button type="button" class="btn btn-danger btn-sm btn-berhenti" onclick="hentikan('<?= $id ?>')"><i
+                                class="bi bi-stop-fill me-1"></i>Hentikan</button>
+                    </div>
+                    <h1 class="nama">
+                        <?= $nama ?>
+                    </h1>
+                    <p class="dawis">Dawis
+                        <?= $dawis ?>
+                    </p>
+                    <img class="foto shadow-lg" src="../gambar-upload/<?= $foto ?>" alt="">
+                    <h1 class="judul-penampilan">"
+                        <?= $penampilan ?> "
+                    </h1>
+                <?php endif; ?>
+            <?php else: ?>
+                <!-- jika tidak ada peserta yang tampil -->
+                <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
+                <button type="button" class="btn tampilkan" onclick="buka('overlay')">Tampilkan Peserta</button>
+            <?php endif; ?>
         </div>
     </div>
     <!-- akhir content -->
@@ -71,8 +100,8 @@
             <i class=" bi bi-x-circle" onclick="tutup('pilihan')"></i>
             <h2>Pilih metode untuk menampilkan</h2>
             <div class=" aksi mt-3">
-                <button type="button" class="btn btn-success acak" onclick="buka('acak')">Pilih Acak</button>
-                <button type="button" class="btn btn-primary langsung" onclick="buka('langsung')">Pilih
+                <button type="button" class="btn btn-success btn-acak" onclick="buka('acak')">Pilih Acak</button>
+                <button type="button" class="btn btn-primary btn-langsung" onclick="buka('langsung')">Pilih
                     Langsung</button>
             </div>
         </div>
@@ -80,7 +109,7 @@
             <i class=" bi bi-x-circle" onclick="tutup('langsung')"></i>
             <h1 class="text-white">Silahkan pilih peserta untuk ditampilkan</h1>
             <div class="scroll">
-                <?php foreach (daftarPeserta() as $peserta): ?>
+                <?php foreach (getPesertaBelumDitampilkan() as $peserta): ?>
                     <?php
                     $id = $peserta['id'];
                     $foto = $peserta['foto'];
@@ -108,6 +137,16 @@
                 <?php endforeach ?>
             </div>
         </div>
+        <div class="acak" style="display: none">
+            <!-- <h1 class="nama">Nama</h1>
+            <p class="dawis">Dawis</p>
+            <img src="../gambar-upload/230821032745.png" alt="" class="foto">
+            <h1 class="judul-penampilan">Penampilan</h1>
+            <div class="aksi">
+                <button type="button" class="btn btn-danger batal" onclick="tutup('acak')">Batal</button>
+                <button type="button" class="btn btn-success tampilkan">Tampilkan</button>
+            </div> -->
+        </div>
     </div>
 
     <script>
@@ -115,6 +154,7 @@
         let overlay = document.querySelector('.overlay');
         let pilihan = document.querySelector('.pilihan')
         let daftarPeserta = document.querySelector('.daftar-peserta');
+        let acak = document.querySelector('.acak');
 
         function buka(type) {
             if (type == 'overlay') {
@@ -123,7 +163,37 @@
             } else if (type == 'langsung') {
                 pilihan.style.display = "none";
                 daftarPeserta.style.display = "flex";
+            } else if (type == 'acak') {
+                acak.style.display = "flex";
+                pilihan.style.display = "none";
+
+                // Tampilkan animasi loading
+                acak.innerHTML = `<h1 class="pilih-acak">Memilih Acak</h1>
+                                <div class="lds-roller">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>`;
+
+                // Tunggu selama 2 detik sebelum mengambil peserta acak
+                setTimeout(function () {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            acak.innerHTML = xhttp.responseText;
+                        }
+                    };
+
+                    xhttp.open("GET", "peserta-acak.php", true);
+                    xhttp.send();
+                }, 3000);
             }
+
         }
 
         function tutup(type) {
@@ -132,11 +202,19 @@
             } else if (type == "langsung") {
                 daftarPeserta.style.display = "none";
                 pilihan.style.display = "block";
+            } else if (type == "acak") {
+                acak.style.display = "none";
+                pilihan.style.display = "block";
             }
         }
 
         function tampilkan(id) {
-            window.location = `../functions/index.php?id=${id}`;
+            console.log(id);
+            window.location = `../functions/index.php?id-tampilkan=${id}`;
+        }
+
+        function hentikan(id) {
+            window.location = `../functions/index.php?id-hentikan=${id}`;
         }
     </script>
 
