@@ -260,8 +260,7 @@
     }
     .daftar-peserta .scroll .box .deskripsi p {
         margin: 0;
-        font-size: 13px;
-        margin-top: 30px;
+        font-size: 13px; 
     }
 
     .overlay .detail {

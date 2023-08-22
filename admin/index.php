@@ -1,4 +1,5 @@
 <!doctype html>
+<?php include('../functions/index.php') ?>
 <html lang="en">
 
 <head>
@@ -10,6 +11,10 @@
 
     <!-- css -->
     <link rel="stylesheet" href="../css/admin-home.css">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +33,7 @@
 <body>
 
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">B-KLAS GOT TALENTS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -38,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Penampilan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="tambah-peserta.php">Tambah Peserta</a>
@@ -51,6 +56,167 @@
         </div>
     </nav>
     <!-- akhir navbar -->
+
+    <!-- content -->
+    <div class="container kotak">
+        <div class="penampilan">
+            <?php if (!empty(getPesertaDitampilkan())): ?>
+                <?php if (getPesertaDitampilkan()['status'] == "Sedang ditampilkan"): ?>
+                    <?php
+                    $id = getPesertaDitampilkan()['id'];
+                    $nama = getPesertaDitampilkan()['nama'];
+                    $dawis = getPesertaDitampilkan()['dawis'];
+                    $penampilan = getPesertaDitampilkan()['penampilan'];
+                    $foto = getPesertaDitampilkan()['foto'];
+                    ?>
+                    <!-- jika ada peserta yang tampil -->
+                    <div class="keterangan">
+                        <p><i class="bi bi-circle-fill me-2"></i>Sedang Tampil</p>
+                        <button type="button" class="btn btn-danger btn-sm btn-berhenti" onclick="hentikan('<?= $id ?>')"><i
+                                class="bi bi-stop-fill me-1"></i>Hentikan</button>
+                    </div>
+                    <h1 class="nama">
+                        <?= $nama ?>
+                    </h1>
+                    <p class="dawis">Dawis
+                        <?= $dawis ?>
+                    </p>
+                    <img class="foto shadow-lg" src="../gambar-upload/<?= $foto ?>" alt="">
+                    <h1 class="judul-penampilan">"
+                        <?= $penampilan ?> "
+                    </h1>
+                <?php endif; ?>
+            <?php else: ?>
+                <!-- jika tidak ada peserta yang tampil -->
+                <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
+                <button type="button" class="btn tampilkan" onclick="buka('overlay')">Tampilkan Peserta</button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <!-- akhir content -->
+
+    <div class="overlay overlay animate__animated animate__fadeIn" style="display: none">
+        <div class="pilihan detail animate__animated animate__pulse" style="display: none">
+            <i class=" bi bi-x-circle" onclick="tutup('pilihan')"></i>
+            <h2>Pilih metode untuk menampilkan</h2>
+            <div class=" aksi mt-3">
+                <button type="button" class="btn btn-success btn-acak" onclick="buka('acak')">Pilih Acak</button>
+                <button type="button" class="btn btn-primary btn-langsung" onclick="buka('langsung')">Pilih
+                    Langsung</button>
+            </div>
+        </div>
+        <div class="daftar-peserta" style="display: none">
+            <i class=" bi bi-x-circle" onclick="tutup('langsung')"></i>
+            <h1 class="text-white">Silahkan pilih peserta untuk ditampilkan</h1>
+            <div class="scroll">
+                <?php foreach (getPesertaBelumDitampilkan() as $peserta): ?>
+                    <?php
+                    $id = $peserta['id'];
+                    $foto = $peserta['foto'];
+                    $nama = $peserta['nama'];
+                    $dawis = $peserta['dawis'];
+                    $penampilan = $peserta['penampilan'];
+                    ?>
+                    <div class="box"
+                        onclick="tampilkan('<?= $id ?>','<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
+                        <div class="gambar">
+                            <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
+                        </div>
+                        <div class="deskripsi">
+                            <h3>
+                                <?php $nama = $peserta['nama']; ?>
+                                <?=
+                                    $namaDepan = explode(' ', $nama)[0];
+                                ?>
+                            </h3>
+                            <p>Dawis
+                                <?= $peserta['dawis'] ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>
+        <div class="acak" style="display: none">
+            <!-- <h1 class="nama">Nama</h1>
+            <p class="dawis">Dawis</p>
+            <img src="../gambar-upload/230821032745.png" alt="" class="foto">
+            <h1 class="judul-penampilan">Penampilan</h1>
+            <div class="aksi">
+                <button type="button" class="btn btn-danger batal" onclick="tutup('acak')">Batal</button>
+                <button type="button" class="btn btn-success tampilkan">Tampilkan</button>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+
+        let overlay = document.querySelector('.overlay');
+        let pilihan = document.querySelector('.pilihan')
+        let daftarPeserta = document.querySelector('.daftar-peserta');
+        let acak = document.querySelector('.acak');
+
+        function buka(type) {
+            if (type == 'overlay') {
+                overlay.style.display = "flex";
+                pilihan.style.display = "block";
+            } else if (type == 'langsung') {
+                pilihan.style.display = "none";
+                daftarPeserta.style.display = "flex";
+            } else if (type == 'acak') {
+                acak.style.display = "flex";
+                pilihan.style.display = "none";
+
+                // Tampilkan animasi loading
+                acak.innerHTML = `<h1 class="pilih-acak">Memilih Acak</h1>
+                                <div class="lds-roller">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>`;
+
+                // Tunggu selama 2 detik sebelum mengambil peserta acak
+                setTimeout(function () {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            acak.innerHTML = xhttp.responseText;
+                        }
+                    };
+
+                    xhttp.open("GET", "peserta-acak.php", true);
+                    xhttp.send();
+                }, 3000);
+            }
+
+        }
+
+        function tutup(type) {
+            if (type == "pilihan") {
+                overlay.style.display = "none";
+            } else if (type == "langsung") {
+                daftarPeserta.style.display = "none";
+                pilihan.style.display = "block";
+            } else if (type == "acak") {
+                acak.style.display = "none";
+                pilihan.style.display = "block";
+            }
+        }
+
+        function tampilkan(id) {
+            console.log(id);
+            window.location = `../functions/index.php?id-tampilkan=${id}`;
+        }
+
+        function hentikan(id) {
+            window.location = `../functions/index.php?id-hentikan=${id}`;
+        }
+    </script>
 
 
 
