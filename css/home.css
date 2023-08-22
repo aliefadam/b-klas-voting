@@ -1,0 +1,169 @@
+@import url("style.css");
+
+.penampilan {
+    width: 100%;
+    height: 80vh;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--warna3);
+    color: white;
+    border-radius: 20px;
+    position: relative;
+}
+
+.penampilan .keterangan {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+}
+
+.penampilan .keterangan p {
+    width: 100%;
+    margin: 0;
+    font-weight: bold;
+}
+
+.penampilan .keterangan p i {
+    color: red;
+    font-size: 15px;
+    margin: 0;
+    animation: mengedip infinite 2s;
+}
+
+@keyframes mengedip {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.penampilan .keterangan button.nilai {
+    width: 15%;
+    margin: 0;
+}
+
+.penampilan .keterangan button.nilai i {
+    font-size: 15px;
+}
+
+.penampilan h1.nama {
+    font-size: 50px;
+    margin: 0;
+}
+
+.penampilan h1.judul-penampilan {
+    text-transform: uppercase;
+}
+
+.penampilan p.dawis {
+    font-size: 25px;
+    margin: 0;
+}
+
+.penampilan img.foto {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: bergerak infinite 2s;
+}
+
+@keyframes bergerak {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.penampilan h1 {
+    font-size: 35px;
+}
+
+.penampilan button.btn.tampilkan {
+    width: 30%;
+    margin-top: 15px;
+    color: white;
+    background-color: var(--warna1);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.overlay .nilai {
+    width: 30%;
+    padding: 30px;
+    background-color: var(--warna2);
+    border-radius: 15px;
+    border: 3px solid white;
+}
+
+.overlay .nilai .bintang {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.overlay .nilai .bintang i {
+    font-size: 30px;
+    color: rgb(131, 131, 11);
+    cursor: pointer;
+}
+
+.overlay .komentar {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.overlay .komentar textarea {
+    width: 100%;
+    height: 200px;
+}
+
+.overlay button.btn {
+    width: 50%;
+    display: block;
+    margin: 30px auto;
+    margin-bottom: 0;
+}
