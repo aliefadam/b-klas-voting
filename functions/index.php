@@ -53,6 +53,8 @@ function hapus($nama)
     $stmt->bind_param("s", $nama);
     $stmt->execute();
 
+    $namaFoto = "";
+
     // Mengikat hasil query ke dalam variabel $namaFoto
     $stmt->bind_result($namaFoto);
 
