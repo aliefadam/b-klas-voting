@@ -1,0 +1,42 @@
+@import url("style.css");
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container.kotak {
+    padding: 20px;
+    border-radius: 15px;
+    width: 40%;
+    height: fit-content;
+    border: 3px solid var(--warna1);
+    background-color: var(--warna2);
+    color: white;
+}
+
+.container.kotak h1 {
+    margin: 0;
+}
+
+.container.kotak form {
+    width: 100%;
+}
+
+.container.kotak form .item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container.kotak form input {
+    width: 83%;
+}
+
+.container.kotak button.btn {
+    width: 50%;
+}

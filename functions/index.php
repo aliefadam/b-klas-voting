@@ -212,6 +212,123 @@ function getPesertaDitampilkan()
     return $rows[0];
 }
 
+
+function masuk($data)
+{
+    global $koneksi;
+
+    $nama = $data['nama'];
+
+    $query = "INSERT INTO user VALUES (NULL, ?)";
+    $stmt = $koneksi->prepare($query);
+
+    $stmt->bind_param("s", $nama);
+    $stmt->execute();
+
+    setcookie("nama", hash("sha256", $nama), time() + 86400);
+    header("Location: index.php");
+}
+
+function cekMasuk()
+{
+    global $koneksi;
+
+    if (isset($_COOKIE['nama'])) {
+        $namaCookie = $_COOKIE['nama'];
+
+        $query = "SELECT * FROM user";
+        $result = $koneksi->query($query);
+        $rows = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+        }
+
+        foreach ($rows as $user) {
+            if ($namaCookie == hash("sha256", $user['nama'])) {
+                return true;
+            }
+        }
+
+    }
+
+    return false;
+}
+
+function getIdUser($nama)
+{
+    global $koneksi;
+
+    $query = "SELECT * FROM user";
+    $result = $koneksi->query($query);
+    $rows = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    }
+
+    foreach ($rows as $user) {
+        if ($nama == hash("sha256", $user['nama'])) {
+            return $user['id'];
+        }
+    }
+}
+
+function beriUlasan($namaUser, $idPeserta, $skor, $komentar)
+{
+    global $koneksi;
+
+    $idUser = getIdUser($namaUser);
+
+    $query = "INSERT INTO penilaian VALUES (NULL, ?, ?, ?, ?)";
+    $stmt = $koneksi->prepare($query);
+
+    $stmt->bind_param("siis", $idUser, $idPeserta, $skor, $komentar);
+    $stmt->execute();
+
+    header("Location: ../index.php");
+}
+
+function validBeriUlasan($namaUser, $idPeserta)
+{
+    global $koneksi;
+
+    $idUser = getIdUser($namaUser);
+
+    $query = "SELECT * FROM penilaian WHERE id_user = $idUser AND id_peserta = $idPeserta";
+    $result = $koneksi->query($query);
+    $rows = [];
+
+    if ($result->num_rows > 0) {
+        return false;
+    }
+
+    return true;
+
+}
+
+function getRataRataUlasan($idPeserta)
+{
+    global $koneksi;
+
+    $query = "SELECT ROUND(AVG(Skor), 1) AS rata_rata_skor FROM penilaian WHERE id_peserta = $idPeserta";
+    $result = $koneksi->query($query);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $rataRataUlasan = $row['rata_rata_skor'];
+        return $rataRataUlasan;
+    } else {
+        return 0;
+    }
+}
+
+
+
 if (isset($_POST['tambah-peserta'])) {
     tambahPeserta($_POST, $_FILES);
 }
@@ -233,6 +350,18 @@ if (isset($_GET['id-hentikan'])) {
     hentikanPeserta($_GET['id-hentikan']);
 }
 
+if (isset($_POST['masuk'])) {
+    masuk($_POST);
+}
+
+if (isset($_GET['id-peserta'])) {
+    $namaUser = $_GET['nama-user'];
+    $idPeserta = $_GET['id-peserta'];
+    $skor = $_GET['bintang'];
+    $komentar = $_GET['komentar'];
+
+    beriUlasan($namaUser, $idPeserta, $skor, $komentar);
+}
 
 
 

@@ -85,6 +85,71 @@
                     <h1 class="judul-penampilan">"
                         <?= $penampilan ?> "
                     </h1>
+                    <div class="live-skor">
+                        <div class="skor">
+                            <span>Skor =
+                                <?= (getRataRataUlasan($id) == NULL ? '0' : getRataRataUlasan($id)) ?>
+                            </span>
+                        </div>
+                        <div class="bintang">
+                            <?php
+                            $total = getRataRataUlasan($id);
+                            $starClasses = ['', '', '', '', ''];
+                            if ($total >= 1 && $total <= 1.9) {
+                                if ($total > 1 && $total <= 1.9) {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-half';
+                                } else {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '';
+                                }
+                            } elseif ($total >= 2 && $total <= 2.9) {
+                                if ($total > 2 && $total <= 2.9) {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '-half';
+                                } else {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '';
+                                }
+                            } elseif ($total >= 3 && $total <= 3.9) {
+                                if ($total > 3 && $total <= 3.9) {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '-fill';
+                                    $starClasses[3] = '-half';
+                                } else {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '-fill';
+                                    $starClasses[3] = '';
+                                }
+                            } elseif ($total >= 4 && $total <= 4.9) {
+                                if ($total > 4 && $total <= 4.9) {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '-fill';
+                                    $starClasses[3] = '-fill';
+                                    $starClasses[4] = '-half';
+                                } else {
+                                    $starClasses[0] = '-fill';
+                                    $starClasses[1] = '-fill';
+                                    $starClasses[2] = '-fill';
+                                    $starClasses[3] = '-fill';
+                                    $starClasses[4] = '';
+                                }
+                            } elseif ($total >= 5) {
+                                $starClasses = ['-fill', '-fill', '-fill', '-fill', '-fill'];
+                            }
+                            ?>
+                            <i class="bi bi-star<?= $starClasses[0] ?> satu"></i>
+                            <i class="bi bi-star<?= $starClasses[1] ?> dua"></i>
+                            <i class="bi bi-star<?= $starClasses[2] ?> tiga"></i>
+                            <i class="bi bi-star<?= $starClasses[3] ?> empat"></i>
+                            <i class="bi bi-star<?= $starClasses[4] ?> lima"></i>
+                        </div>
+                    </div>
                 <?php endif; ?>
             <?php else: ?>
                 <!-- jika tidak ada peserta yang tampil -->
@@ -207,6 +272,79 @@
         function hentikan(id) {
             window.location = `../functions/index.php?id-hentikan=${id}`;
         }
+
+        function updateStarRating(total) {
+            var starClasses = ['', '', '', '', ''];
+
+            if (total >= 1 && total <= 1.9) {
+                if (total > 1 && total <= 1.9) {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-half';
+                } else {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '';
+                }
+            } else if (total >= 2 && total <= 2.9) {
+                if (total > 2 && total <= 2.9) {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '-half';
+                } else {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '';
+                }
+            } else if (total >= 3 && total <= 3.9) {
+                if (total > 3 && total <= 3.9) {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '-fill';
+                    starClasses[3] = '-half';
+                } else {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '-fill';
+                    starClasses[3] = '';
+                }
+            } else if (total >= 4 && total <= 4.9) {
+                if (total > 4 && total <= 4.9) {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '-fill';
+                    starClasses[3] = '-fill';
+                    starClasses[4] = '-half';
+                } else {
+                    starClasses[0] = '-fill';
+                    starClasses[1] = '-fill';
+                    starClasses[2] = '-fill';
+                    starClasses[3] = '-fill';
+                    starClasses[4] = '';
+                }
+            } else if (total >= 5) {
+                starClasses = ['-fill', '-fill', '-fill', '-fill', '-fill'];
+            }
+
+            // Update kelas-kelas bintang sesuai dengan kalkulasi di atas
+            var starElements = document.querySelectorAll('.live-skor .bintang i');
+            for (var i = 0; i < starClasses.length; i++) {
+                starElements[i].className = 'bi bi-star' + starClasses[i] + ' ' + (i + 1);
+            }
+        }
+
+
+        function updateLiveScore() {
+            fetch('../get-live-score.php').then(response => response.json())
+                .then(data => {
+                    document.querySelector('.live-skor .skor span').textContent = 'Skor = ' + data.score;
+                    updateStarRating(data.score);
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+
+        setInterval(updateLiveScore, 5000);
+
     </script>
 
 
