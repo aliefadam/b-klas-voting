@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Agu 2023 pada 16.28
+-- Waktu pembuatan: 22 Agu 2023 pada 15.00
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -24,6 +24,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `penampilan`
+--
+
+CREATE TABLE `penampilan` (
+  `id` int(11) NOT NULL,
+  `id_peserta` int(11) NOT NULL,
+  `total_skor` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `penampilan`
+--
+
+INSERT INTO `penampilan` (`id`, `id_peserta`, `total_skor`) VALUES
+(8, 10, 0),
+(9, 11, 0),
+(10, 13, 0),
+(11, 12, 0),
+(12, 14, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penilaian`
+--
+
+CREATE TABLE `penilaian` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_peserta` int(11) NOT NULL,
+  `Skor` int(11) NOT NULL,
+  `Komentar` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `peserta`
 --
 
@@ -32,24 +69,34 @@ CREATE TABLE `peserta` (
   `nama` varchar(255) NOT NULL,
   `dawis` int(11) NOT NULL,
   `penampilan` varchar(255) NOT NULL,
-  `foto` varchar(255) NOT NULL
+  `foto` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `peserta`
 --
 
-INSERT INTO `peserta` (`id`, `nama`, `dawis`, `penampilan`, `foto`) VALUES
-(1, 'Alief Adam', 2, 'Dolan Bareng', '230812093134.png'),
-(2, 'Testing Peserta', 5, 'asdasdasdasd', '230812100924.png'),
-(3, 'asdasdsd', 12312, 'asdasdasdasd', '230812101151.png'),
-(4, 'asdasd', 123123, 'asdasdasd', '230818031829.png'),
-(5, 'asdasd', 123, 'asdasdasdsa', '230818035655.png'),
-(6, 'asdasd', 321, 'asdasdasd', '230818035711.png');
+INSERT INTO `peserta` (`id`, `nama`, `dawis`, `penampilan`, `foto`, `status`) VALUES
+(10, 'Alief adam', 5, 'Penampilan Tari Remo', '230822105427.jpg', 'Sudah ditampilkan'),
+(11, 'Ardian Monang', 7, 'Atraksi Sembur Api', '230822110814.jpg', 'Sudah ditampilkan'),
+(14, 'Alief Adam', 5, 'Stand Up Comedi - Roasting Pemerintah', '230822025809.jpg', 'Sedang ditampilkan');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `penampilan`
+--
+ALTER TABLE `penampilan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `peserta`
@@ -62,10 +109,22 @@ ALTER TABLE `peserta`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `penampilan`
+--
+ALTER TABLE `penampilan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `penilaian`
+--
+ALTER TABLE `penilaian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

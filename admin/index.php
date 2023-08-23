@@ -137,16 +137,7 @@
                 <?php endforeach ?>
             </div>
         </div>
-        <div class="acak" style="display: none">
-            <!-- <h1 class="nama">Nama</h1>
-            <p class="dawis">Dawis</p>
-            <img src="../gambar-upload/230821032745.png" alt="" class="foto">
-            <h1 class="judul-penampilan">Penampilan</h1>
-            <div class="aksi">
-                <button type="button" class="btn btn-danger batal" onclick="tutup('acak')">Batal</button>
-                <button type="button" class="btn btn-success tampilkan">Tampilkan</button>
-            </div> -->
-        </div>
+        <div class="acak" style="display: none"></div>
     </div>
 
     <script>

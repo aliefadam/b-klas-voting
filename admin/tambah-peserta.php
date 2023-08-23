@@ -59,22 +59,22 @@
             <form action="../functions/index.php" method="post" enctype="multipart/form-data">
                 <div class="mt-2">
                     <label for="nama" class="form-label">Nama Peserta</label>
-                    <input type="text" name="nama" id="nama" class="form-control">
+                    <input type="text" name="nama" id="nama" class="form-control" required>
                 </div>
                 <div class="mt-2">
                     <label for="dawis" class="form-label">Dasa Wisma</label>
-                    <input type="number" name="dawis" id="dawis" class="form-control">
+                    <input type="number" name="dawis" id="dawis" class="form-control" required>
                 </div>
                 <div class="mt-2">
                     <label for="penampilan" class="form-label">Judul Penampilan</label>
-                    <input type="text" name="penampilan" id="penampilan" class="form-control">
+                    <input type="text" name="penampilan" id="penampilan" class="form-control" required>
                 </div>
                 <div class="mt-2">
                     <label for="foto" class="form-label">Foto</label>
                     <input type="file" name="foto" id="foto" class="form-control">
                 </div>
                 <div class="mt-4">
-                    <button class="btn btn-tambah" type="submit" name="tambah-peserta">Tambah</button>
+                    <button class="btn btn-tambah" type="submit" name="tambah-peserta" >Tambah</button>
                 </div>
             </form>
         </div>
