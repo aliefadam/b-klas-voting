@@ -154,7 +154,6 @@ if (!cekMasuk()) {
                             <i class="bi bi-star<?= $starClasses[2] ?> bintang-tiga"></i>
                             <i class="bi bi-star<?= $starClasses[3] ?> bintang-empat"></i>
                             <i class="bi bi-star<?= $starClasses[4] ?> bintang-lima"></i>
-
                         </div>
                     </div>
                 <?php endif; ?>
