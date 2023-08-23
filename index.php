@@ -309,7 +309,6 @@ if (!cekMasuk()) {
                 starClasses = ['-fill', '-fill', '-fill', '-fill', '-fill'];
             }
 
-            // Update kelas-kelas bintang sesuai dengan kalkulasi di atas
             var starElements = document.querySelectorAll('.live-skor .bintang i');
             for (var i = 0; i < starClasses.length; i++) {
                 starElements[i].className = 'bi bi-star' + starClasses[i] + ' ' + (i + 1);

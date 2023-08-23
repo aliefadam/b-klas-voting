@@ -88,7 +88,7 @@
                     <div class="live-skor">
                         <div class="skor">
                             <span>Skor =
-                                <?= (getRataRataUlasan($id) == NULL ? '0' : getRataRataUlasan($id)) ?>
+                                <?= getRataRataUlasan($id) ?>
                             </span>
                         </div>
                         <div class="bintang">

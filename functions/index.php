@@ -1,6 +1,7 @@
 <?php
 
 $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+// $koneksi = new mysqli("localhost", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -55,21 +56,16 @@ function hapus($nama)
 
     $namaFoto = "";
 
-    // Mengikat hasil query ke dalam variabel $namaFoto
     $stmt->bind_result($namaFoto);
 
-    // Mengambil nilai dari query
     $stmt->fetch();
 
-    // Tutup pernyataan SELECT sebelum melanjutkan
     $stmt->close();
 
-    // Menghapus file gambar jika ada
     if ($namaFoto) {
         unlink("../gambar-upload/$namaFoto");
     }
 
-    // Menghapus data peserta dari database
     $query = "DELETE FROM peserta WHERE nama = ?";
     $stmt = $koneksi->prepare($query);
 
@@ -154,6 +150,8 @@ function tampilkanPeserta($id)
     $stmt->bind_param("si", $status, $id);
     $stmt->execute();
 
+    // setcookie("id", hash("sha256", $id), time() + 86400);
+    setcookie("id", $id, time() + 86400, "/");
     header('Location: ../admin/index.php');
 
 }
@@ -170,6 +168,7 @@ function hentikanPeserta($id)
     $stmt->bind_param("si", $status, $id);
     $stmt->execute();
 
+    setcookie("id", "", time() - 3600, "/");
     header('Location: ../admin/index.php');
 }
 
@@ -224,7 +223,7 @@ function masuk($data)
     $stmt->bind_param("s", $nama);
     $stmt->execute();
 
-    setcookie("nama", hash("sha256", $nama), time() + 86400);
+    setcookie("nama", hash("sha256", $nama), time() + 86400, "/");
     header("Location: index.php");
 }
 
