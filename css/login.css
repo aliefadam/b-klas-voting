@@ -40,3 +40,13 @@ body {
 .container.kotak button.btn {
     width: 50%;
 }
+
+@media only screen and (max-width: 425px) {
+    .container.kotak{
+        width: 85%
+    }
+    .container.kotak h1{
+        text-align: center;
+        font-size: calc(1.375rem + 1vw);
+    }
+}

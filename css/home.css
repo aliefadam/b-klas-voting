@@ -206,3 +206,9 @@
     margin: 30px auto;
     margin-bottom: 0;
 }
+
+@media only screen and (max-width: 425px) {
+    .container.kotak{
+        width: 85%;
+    }
+}
