@@ -60,7 +60,16 @@
     <!-- content -->
     <div class="container kotak">
         <div class="daftar-peserta">
-            <h1>Daftar Peserta</h1>
+            <div class="header mt-2">
+                <div class="item"></div>
+                <div class="item">
+                    <h1 class="">Daftar Peserta</h1>
+                </div>
+                <div class="item input">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Cari peserta" name="keyword" id="keyword" class="item form-control">
+                </div>
+            </div>
             <div class="scroll">
                 <?php foreach (daftarPeserta() as $peserta): ?>
                     <?php
@@ -198,6 +207,21 @@
             editPeserta.style.display = "flex";
 
         }
+
+        let keyword = document.getElementById('keyword');
+        let scroll = document.querySelector('.scroll');
+        keyword.addEventListener('keyup', () => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    scroll.innerHTML = xhr.responseText;
+                }
+            }
+
+            xhr.open("GET", `live-search.php?keyword=${keyword.value}`, true);
+            xhr.send();
+        })
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

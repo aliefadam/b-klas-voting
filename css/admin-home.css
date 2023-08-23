@@ -85,8 +85,8 @@
 }
 
 .penampilan img.foto {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -132,6 +132,7 @@
 
 .penampilan h1 {
     font-size: 35px;
+    text-align: center;
 }
 
 .penampilan button.btn.tampilkan {
@@ -176,7 +177,7 @@
 }
 
 .overlay .pilihan i,
-.overlay .daftar-peserta i {
+.overlay .daftar-peserta i.close {
     color: white;
     font-size: 40px;
     cursor: pointer;
@@ -202,6 +203,43 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.daftar-peserta .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-position: 1px solid red;
+}
+
+.daftar-peserta .header .item {
+    width: calc(100% / 3);
+}
+
+.daftar-peserta .header .item.input {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.daftar-peserta .header .item.input input {
+    width: 60%;
+}
+
+.daftar-peserta .header .item.input i {
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: black;
+    background-color: none;
+    font-size: 18px;
+}
+
+.daftar-peserta .header h1 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
 }
 
 .daftar-peserta .scroll {
@@ -428,5 +466,76 @@ h1.pilih-acak {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    /* screen penampilan */
+    .penampilan h1 {
+        font-size: calc(1.375rem + 1.2vw);
+    }
+    .penampilan button.btn.tampilkan {
+        font-size: 100%;
+        width: 50%;
+    }
+    .overlay .pilihan {
+        text-align: center;
+        height: autp;
+        width: 85%;
+    }
+
+    /* overlay opsi acak atau manual */
+    .overlay .pilihan .aksi button.btn {
+        width: 55%;
+        font-size: 15px;
+    }
+
+    /* overlay tambah manual */
+    .overlay .daftar-peserta {
+        height: 70%;
+        padding: 3%;
+        text-align: center;
+    }
+    .overlay .daftar-peserta h1 {
+        font-size: calc(1.375rem + 1vw);
+        margin-top: 15px;
+    }
+    .overlay .daftar-peserta .scroll {
+        padding: 0%;
+    }
+    .overlay .daftar-peserta .scroll .box {
+        width: 45%;
+        height: auto;
+        margin: 0%;
+    }
+    .overlay .daftar-peserta .scroll .box img {
+        width: 100%;
+    }
+    .overlay .daftar-peserta .scroll .box .deskripsi h3 {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+    .overlay .daftar-peserta .scroll .box .deskripsi p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    /* overlay tambah acak */
+    .overlay .acak {
+        width: 90%;
+        height: auto;
+    }
+    .overlay .acak .aksi button.btn {
+        width: 45%;
+    }
+    .overlay .acak p.dawis {
+        font-size: 18px;
+    }
+
+    /* screen sedang ditampilkan */
+    .kotak .penampilan .keterangan .btn {
+        display: flex;
+        flex-direction: row;
+        width: auto;
     }
 }

@@ -88,7 +88,7 @@
                     <div class="live-skor">
                         <div class="skor">
                             <span>Skor =
-                                <?= (getRataRataUlasan($id) == NULL ? '0' : getRataRataUlasan($id)) ?>
+                                <?= (getRataRataUlasan($id) == "" ? 0 : getRataRataUlasan($id)) ?>
                             </span>
                         </div>
                         <div class="bintang">
@@ -171,8 +171,17 @@
             </div>
         </div>
         <div class="daftar-peserta" style="display: none">
-            <i class=" bi bi-x-circle" onclick="tutup('langsung')"></i>
-            <h1 class="text-white">Silahkan pilih peserta untuk ditampilkan</h1>
+            <i class="close bi bi-x-circle" onclick="tutup('langsung')"></i>
+            <div class="header mt-2">
+                <div class="item"></div>
+                <div class="item">
+                    <h1 class="text-white">Pilih Peserta</h1>
+                </div>
+                <div class="item input">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Cari peserta" name="keyword" id="keyword" class="item form-control">
+                </div>
+            </div>
             <div class="scroll">
                 <?php foreach (getPesertaBelumDitampilkan() as $peserta): ?>
                     <?php
@@ -343,7 +352,23 @@
                 });
         }
 
-        setInterval(updateLiveScore, 5000);
+        setInterval(updateLiveScore, 1000);
+
+
+        let keyword = document.getElementById('keyword');
+        let scroll = document.querySelector('.scroll');
+        keyword.addEventListener('keyup', () => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    scroll.innerHTML = xhr.responseText;
+                }
+            }
+
+            xhr.open("GET", `live-search.php?keyword-tampilkan=${keyword.value}`, true);
+            xhr.send();
+        })
 
     </script>
 

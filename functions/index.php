@@ -1,6 +1,7 @@
 <?php
 
 $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+// $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -43,10 +44,37 @@ function daftarPeserta()
     return $rows;
 }
 
-function hapus($nama)
+function daftarPesertaWhere($keyword)
 {
     global $koneksi;
 
+    $query = "SELECT * FROM peserta WHERE nama LIKE ? OR dawis LIKE ? OR penampilan LIKE ?";
+
+    $stmt = $koneksi->prepare($query);
+
+    $keywordParam = "%$keyword%";
+    $stmt->bind_param("sss", $keywordParam, $keywordParam, $keywordParam);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $rows = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    }
+
+    $stmt->close();
+
+    return $rows;
+}
+
+
+function hapus($nama)
+{
+    global $koneksi;
     // Mengambil nama file gambar dari database
     $query = "SELECT foto FROM peserta WHERE nama = ?";
     $stmt = $koneksi->prepare($query);
@@ -56,21 +84,16 @@ function hapus($nama)
 
     $namaFoto = "";
 
-    // Mengikat hasil query ke dalam variabel $namaFoto
     $stmt->bind_result($namaFoto);
 
-    // Mengambil nilai dari query
     $stmt->fetch();
 
-    // Tutup pernyataan SELECT sebelum melanjutkan
     $stmt->close();
 
-    // Menghapus file gambar jika ada
     if ($namaFoto) {
         unlink("../gambar-upload/$namaFoto");
     }
 
-    // Menghapus data peserta dari database
     $query = "DELETE FROM peserta WHERE nama = ?";
     $stmt = $koneksi->prepare($query);
 
@@ -155,6 +178,8 @@ function tampilkanPeserta($id)
     $stmt->bind_param("si", $status, $id);
     $stmt->execute();
 
+    // setcookie("id", hash("sha256", $id), time() + 86400);
+    setcookie("id", $id, time() + 86400, "/");
     header('Location: ../admin/index.php');
 
 }
@@ -171,6 +196,7 @@ function hentikanPeserta($id)
     $stmt->bind_param("si", $status, $id);
     $stmt->execute();
 
+    setcookie("id", "", time() - 3600, "/");
     header('Location: ../admin/index.php');
 }
 
@@ -187,6 +213,33 @@ function getPesertaBelumDitampilkan()
             $rows[] = $row;
         }
     }
+
+    return $rows;
+}
+
+function getPesertaBelumDitampilkanWhere($keyword)
+{
+    global $koneksi;
+
+    $query = "SELECT * FROM peserta WHERE status = 'Belum ditampilkan' AND (nama LIKE ? OR dawis LIKE ? OR penampilan LIKE ?)";
+
+    $stmt = $koneksi->prepare($query);
+
+    $keywordParam = "%$keyword%";
+    $stmt->bind_param("sss", $keywordParam, $keywordParam, $keywordParam);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $rows = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    }
+
+    $stmt->close();
 
     return $rows;
 }
@@ -225,7 +278,7 @@ function masuk($data)
     $stmt->bind_param("s", $nama);
     $stmt->execute();
 
-    setcookie("nama", hash("sha256", $nama), time() + 86400);
+    setcookie("nama", hash("sha256", $nama), time() + 86400, "/");
     header("Location: index.php");
 }
 
@@ -321,9 +374,10 @@ function getRataRataUlasan($idPeserta)
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $rataRataUlasan = $row['rata_rata_skor'];
+        if ($rataRataUlasan == null) {
+            return 0;
+        }
         return $rataRataUlasan;
-    } else {
-        return 0;
     }
 }
 

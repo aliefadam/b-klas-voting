@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Agu 2023 pada 15.00
+-- Waktu pembuatan: 23 Agu 2023 pada 23.41
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -32,17 +32,6 @@ CREATE TABLE `penampilan` (
   `id_peserta` int(11) NOT NULL,
   `total_skor` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `penampilan`
---
-
-INSERT INTO `penampilan` (`id`, `id_peserta`, `total_skor`) VALUES
-(8, 10, 0),
-(9, 11, 0),
-(10, 13, 0),
-(11, 12, 0),
-(12, 14, 0);
 
 -- --------------------------------------------------------
 
@@ -73,14 +62,16 @@ CREATE TABLE `peserta` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `peserta`
+-- Struktur dari tabel `user`
 --
 
-INSERT INTO `peserta` (`id`, `nama`, `dawis`, `penampilan`, `foto`, `status`) VALUES
-(10, 'Alief adam', 5, 'Penampilan Tari Remo', '230822105427.jpg', 'Sudah ditampilkan'),
-(11, 'Ardian Monang', 7, 'Atraksi Sembur Api', '230822110814.jpg', 'Sudah ditampilkan'),
-(14, 'Alief Adam', 5, 'Stand Up Comedi - Roasting Pemerintah', '230822025809.jpg', 'Sedang ditampilkan');
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -105,6 +96,12 @@ ALTER TABLE `peserta`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -112,7 +109,7 @@ ALTER TABLE `peserta`
 -- AUTO_INCREMENT untuk tabel `penampilan`
 --
 ALTER TABLE `penampilan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
@@ -124,7 +121,13 @@ ALTER TABLE `penilaian`
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

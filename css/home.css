@@ -84,8 +84,8 @@
 }
 
 .penampilan img.foto {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -205,4 +205,10 @@
     display: block;
     margin: 30px auto;
     margin-bottom: 0;
+}
+
+@media only screen and (max-width: 425px) {
+    .container.kotak {
+        width: 85%;
+    }
 }
