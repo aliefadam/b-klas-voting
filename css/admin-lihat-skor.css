@@ -1,0 +1,57 @@
+@import url("style.css");
+
+.data {
+    width: 100%;
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--warna3);
+    color: white;
+    border-radius: 20px;
+    height: 80vh;
+}
+
+.data .scroll {
+    margin-top: 20px;
+    padding: 0 20px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.data .scroll table {
+    height: fit-content;
+}
+
+/* Width and Height of the scrollbar track */
+::-webkit-scrollbar {
+    border-radius: 20px;
+    width: 10px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    border-radius: 20px;
+    background: #f1f1f1;
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Hover state on Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Scrollbar Button (arrows) */
+::-webkit-scrollbar-button {
+    display: none; /* Hide scrollbar buttons */
+}

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
 // $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
@@ -381,6 +383,87 @@ function getRataRataUlasan($idPeserta)
     }
 }
 
+function dataPenilaianPeserta()
+{
+    global $koneksi;
+
+    $query = "SELECT 
+                p.id_peserta,
+                peserta.nama AS nama_peserta,
+                SUM(p.skor) AS total_skor,
+                ROUND(AVG(p.skor), 1) AS rata_rata_skor,
+                COUNT(p.id_user) AS jumlah_vote
+              FROM 
+                penilaian p
+              JOIN
+                peserta ON p.id_peserta = peserta.id
+              GROUP BY
+                p.id_peserta
+              ORDER BY rata_rata_skor DESC";
+
+    $result = $koneksi->query($query);
+    $dataPenilaian = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $dataPenilaian[] = $row;
+        }
+    }
+
+    return $dataPenilaian;
+}
+
+function registerUser($username, $password)
+{
+    global $koneksi;
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO login (username, password) VALUES (?, ?)";
+    $stmt = $koneksi->prepare($query);
+    $stmt->bind_param("ss", $username, $hashedPassword);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function login($data)
+{
+
+    global $koneksi;
+
+    // username = admin;
+    // password = bklaslossss;
+
+    $username = $data['username'];
+    $password = $data['password'];
+
+    $query = "SELECT id, username, password FROM login WHERE username = ?";
+    $stmt = $koneksi->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $username, $hashedPassword);
+        $stmt->fetch();
+
+        if (password_verify($password, $hashedPassword)) {
+            $_SESSION['login'] = true;
+            header('Location: ../admin/index.php');
+            exit;
+        } else {
+            header('Location: login.php');
+        }
+    } else {
+        return false;
+    }
+
+}
 
 
 if (isset($_POST['tambah-peserta'])) {
@@ -417,6 +500,9 @@ if (isset($_GET['id-peserta'])) {
     beriUlasan($namaUser, $idPeserta, $skor, $komentar);
 }
 
+if (isset($_POST['login-admin'])) {
+    login($_POST);
+}
 
 
 ?>

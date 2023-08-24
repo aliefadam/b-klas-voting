@@ -1,9 +1,6 @@
 <?php
-// Ambil skor dari sumber data Anda, misalnya dari database
 include('functions/index.php');
-$id = $_COOKIE['id'];
+$id = $_GET['id'];
 $skor = getRataRataUlasan($id);
-
-header('Content-Type: application/json');
-echo json_encode(['score' => $skor]);
+echo $skor;
 ?>

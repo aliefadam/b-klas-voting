@@ -1,15 +1,20 @@
 <!doctype html>
+<?php include('../functions/index.php') ?>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>B-KLAS GOT TALENTS | TAMBAH PESERTA</title>
+    <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <!-- css -->
-    <link rel="stylesheet" href="../css/admin-tambah-peserta.css">
+    <link rel="stylesheet" href="../css/admin-lihat-skor.css">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +33,7 @@
 <body>
 
     <!-- navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">B-KLAS GOT TALENTS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -41,13 +46,13 @@
                         <a class="nav-link" aria-current="page" href="index.php">Penampilan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="tambah-peserta.php">Tambah Peserta</a>
+                        <a class="nav-link" href="tambah-peserta.php">Tambah Peserta</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="daftar-peserta.php">Daftar Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="lihat-skor.php">Lihat Skor</a>
+                        <a class="nav-link active" href="lihat-skor.php">Lihat Skor</a>
                     </li>
                 </ul>
             </div>
@@ -57,36 +62,46 @@
 
     <!-- content -->
     <div class="container kotak">
-        <div class="form">
-            <h1>Tambah Peserta</h1>
-            <form action="../functions/index.php" method="post" enctype="multipart/form-data">
-                <div class="mt-2">
-                    <label for="nama" class="form-label">Nama Peserta</label>
-                    <input type="text" name="nama" id="nama" class="form-control" required>
-                </div>
-                <div class="mt-2">
-                    <label for="dawis" class="form-label">Dasa Wisma</label>
-                    <input type="number" name="dawis" id="dawis" class="form-control" required>
-                </div>
-                <div class="mt-2">
-                    <label for="penampilan" class="form-label">Judul Penampilan</label>
-                    <input type="text" name="penampilan" id="penampilan" class="form-control" required>
-                </div>
-                <div class="mt-2">
-                    <label for="foto" class="form-label">Foto</label>
-                    <input type="file" name="foto" id="foto" class="form-control">
-                </div>
-                <div class="mt-4">
-                    <button class="btn btn-tambah" type="submit" name="tambah-peserta">Tambah</button>
-                </div>
-            </form>
+        <div class="data">
+            <h1>Hasil Penilaian Peserta</h1>
+            <div class="scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Peserta</th>
+                            <th>Total Skor</th>
+                            <th>Rata - rata</th>
+                            <th>Jumlah Orang Vote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1; ?>
+                        <?php foreach (dataPenilaianPeserta() as $peserta): ?>
+                            <tr>
+                                <td>
+                                    <?= $no++ ?>
+                                </td>
+                                <td>
+                                    <?= $peserta['nama_peserta'] ?>
+                                </td>
+                                <td>
+                                    <?= $peserta['total_skor'] ?>
+                                </td>
+                                <td>
+                                    <?= $peserta['rata_rata_skor'] ?>
+                                </td>
+                                <td>
+                                    <?= $peserta['jumlah_vote'] ?> Orang
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- akhir content -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>

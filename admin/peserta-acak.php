@@ -1,7 +1,7 @@
 <?php
 
-// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-$koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
+$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+// $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
 
 $query = "SELECT * FROM peserta WHERE status = 'Belum ditampilkan' ORDER BY RAND() LIMIT 1";

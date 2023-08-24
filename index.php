@@ -166,6 +166,34 @@ if (!cekMasuk()) {
     </div>
     <!-- akhir content -->
 
+    <script>
+        var hasilSebelumnya = null; // Variabel untuk menyimpan hasil sebelumnya
+
+        function refreshPenampilan() {
+            // Lakukan permintaan AJAX ke server untuk mendapatkan hasil baru dari admin/live-penampilan.php
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'admin/live-penampilan.php', true); // Ganti dengan URL yang sesuai
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var hasilBaru = xhr.responseText;
+
+                    // Bandingkan hasil baru dengan hasil sebelumnya
+                    if (hasilBaru !== hasilSebelumnya) {
+                        // Jika hasil berbeda, update konten di dalam div .penampilan
+                        document.querySelector('.penampilan').innerHTML = hasilBaru;
+                        hasilSebelumnya = hasilBaru; // Perbarui hasil sebelumnya
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Refresh setiap 1 detik
+        setInterval(refreshPenampilan, 1000);
+
+    </script>
+
+
     <!-- beri nilai -->
     <div class="overlay animate__animated animate__fadeIn" style="display: none">
         <div class="nilai detail animate__animated animate__pulse">
@@ -209,6 +237,17 @@ if (!cekMasuk()) {
             window.location = `functions/index.php?id-peserta=${idPeserta}&nama-user=${namaUser}&bintang=${bintangDiklik}&komentar=${komentar.value}`;
         }
 
+        function buka(type, id, nama) {
+            idPeserta = id;
+            namaUser = nama;
+            if (type == "nilai") { overlay.style.display = "flex"; }
+        }
+        function tutup(type) {
+            if (type == "nilai") {
+                overlay.style.display = "none";
+            }
+        }
+
         function bintang(jumlah) {
             bintangDiklik = jumlah;
 
@@ -245,16 +284,6 @@ if (!cekMasuk()) {
                     bintangDua.style.color = "yellow"; bintangTiga.style.color = "yellow";
                     bintangEmpat.style.color = "yellow"; bintangLima.style.color = "yellow";
                 }
-        }
-        function buka(type, id, nama) {
-            idPeserta = id;
-            namaUser = nama;
-            if (type == "nilai") { overlay.style.display = "flex"; }
-        }
-        function tutup(type) {
-            if (type == "nilai") {
-                overlay.style.display = "none";
-            }
         }
 
         function updateStarRating(total) {
@@ -315,17 +344,20 @@ if (!cekMasuk()) {
         }
 
         function updateLiveScore() {
-            fetch('get-live-score.php').then(response => response.json())
-                .then(data => {
-                    document.querySelector('.live-skor .skor span').textContent = 'Skor = ' + data.score;
-                    updateStarRating(data.score);
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
+            let id = <?= $id ?>;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status == 200) {
+                    document.querySelector('.live-skor .skor span').innerHTML = "Skor = " + xhr.responseText;
+                    updateStarRating(xhr.responseText);
+                }
+            }
+
+            xhr.open("GET", `get-live-score.php?id=${id}`, true);
+            xhr.send();
         }
 
-        setInterval(updateLiveScore, 1000);
+        // setInterval(updateLiveScore, 1000);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -10,8 +10,7 @@
         $dawis = $peserta['dawis'];
         $penampilan = $peserta['penampilan'];
         ?>
-        <div class="box"
-            onclick="tampilkan('<?= $id ?>','<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
+        <div class="box" onclick="tampilkan('<?= $id ?>')">
             <div class="gambar">
                 <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
             </div>

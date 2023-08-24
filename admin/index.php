@@ -1,5 +1,13 @@
 <!doctype html>
 <?php include('../functions/index.php') ?>
+<?php
+
+if (!isset($_SESSION['login'])) {
+    header('Location: login.php');
+    exit;
+}
+
+?>
 <html lang="en">
 
 <head>
@@ -51,6 +59,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="daftar-peserta.php">Daftar Peserta</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lihat-skor.php">Lihat Skor</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -63,7 +74,7 @@
             <?php if (!empty(getPesertaDitampilkan())): ?>
                 <?php if (getPesertaDitampilkan()['status'] == "Sedang ditampilkan"): ?>
                     <?php
-                    $id = getPesertaDitampilkan()['id'];
+                    $idTampilanPeserta = getPesertaDitampilkan()['id'];
                     $nama = getPesertaDitampilkan()['nama'];
                     $dawis = getPesertaDitampilkan()['dawis'];
                     $penampilan = getPesertaDitampilkan()['penampilan'];
@@ -72,7 +83,8 @@
                     <!-- jika ada peserta yang tampil -->
                     <div class="keterangan">
                         <p><i class="bi bi-circle-fill me-2"></i>Sedang Tampil</p>
-                        <button type="button" class="btn btn-danger btn-sm btn-berhenti" onclick="hentikan('<?= $id ?>')"><i
+                        <button type="button" class="btn btn-danger btn-sm btn-berhenti"
+                            onclick="hentikan('<?= $idTampilanPeserta ?>')"><i
                                 class="bi bi-stop-fill me-1"></i>Hentikan</button>
                     </div>
                     <h1 class="nama">
@@ -87,13 +99,13 @@
                     </h1>
                     <div class="live-skor">
                         <div class="skor">
-                            <span>Skor =
-                                <?= (getRataRataUlasan($id) == "" ? 0 : getRataRataUlasan($id)) ?>
+                            <span class="skor-tampil">Skor =
+                                <?= (getRataRataUlasan($idTampilanPeserta) == "" ? 0 : getRataRataUlasan($idTampilanPeserta)) ?>
                             </span>
                         </div>
                         <div class="bintang">
                             <?php
-                            $total = getRataRataUlasan($id);
+                            $total = getRataRataUlasan($idTampilanPeserta);
                             $starClasses = ['', '', '', '', ''];
                             if ($total >= 1 && $total <= 1.9) {
                                 if ($total > 1 && $total <= 1.9) {
@@ -154,7 +166,7 @@
             <?php else: ?>
                 <!-- jika tidak ada peserta yang tampil -->
                 <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
-                <button type="button" class="btn tampilkan" onclick="buka('overlay')">Tampilkan Peserta</button>
+                <button type="button" class="btn tampilkan" onclick="bukaOverlay('overlay')">Tampilkan Peserta</button>
             <?php endif; ?>
         </div>
     </div>
@@ -165,8 +177,8 @@
             <i class=" bi bi-x-circle" onclick="tutup('pilihan')"></i>
             <h2>Pilih metode untuk menampilkan</h2>
             <div class=" aksi mt-3">
-                <button type="button" class="btn btn-success btn-acak" onclick="buka('acak')">Pilih Acak</button>
-                <button type="button" class="btn btn-primary btn-langsung" onclick="buka('langsung')">Pilih
+                <button type="button" class="btn btn-success btn-acak" onclick="bukaOverlay('acak')">Pilih Acak</button>
+                <button type="button" class="btn btn-primary btn-langsung" onclick="bukaOverlay('langsung')">Pilih
                     Langsung</button>
             </div>
         </div>
@@ -179,8 +191,11 @@
                 </div>
                 <div class="item input">
                     <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Cari peserta" name="keyword" id="keyword" class="item form-control">
+                    <input type="text" placeholder="Cari peserta" name="keyword" id="keyword"
+                        class="item form-control input-cari-peserta" onkeyup="liveSearch()">
                 </div>
+
+
             </div>
             <div class="scroll">
                 <?php foreach (getPesertaBelumDitampilkan() as $peserta): ?>
@@ -191,8 +206,7 @@
                     $dawis = $peserta['dawis'];
                     $penampilan = $peserta['penampilan'];
                     ?>
-                    <div class="box"
-                        onclick="tampilkan('<?= $id ?>','<?= $foto ?>', `<?= $nama ?>`, '<?= $dawis ?>', '<?= $penampilan ?>')">
+                    <div class="box" onclick="tampilkan('<?= $id ?>')">
                         <div class="gambar">
                             <img src="../gambar-upload/<?= $peserta['foto'] ?>" alt="">
                         </div>
@@ -210,169 +224,48 @@
                     </div>
                 <?php endforeach ?>
             </div>
+
+            <script>
+                let keyword = document.querySelector('.input-cari-peserta');
+                let scroll = document.querySelector('.scroll');
+                keyword.addEventListener('keyup', () => {
+                    console.log(keyword.value);
+                    let xml = new XMLHttpRequest();
+                    xml.onreadystatechange = function () {
+                        if (xml.readyState == 4 && xml.status == 200) {
+                            scroll.innerHTML = xml.responseText;
+                        }
+                    }
+
+                    xml.open("GET", `live-search.php?keyword-tampilkan=${keyword.value}`, true);
+                    xml.send();
+                })
+            </script>
         </div>
         <div class="acak" style="display: none"></div>
     </div>
 
+    <script src="../js/admin-script.js"></script>
     <script>
 
-        let overlay = document.querySelector('.overlay');
-        let pilihan = document.querySelector('.pilihan')
-        let daftarPeserta = document.querySelector('.daftar-peserta');
-        let acak = document.querySelector('.acak');
-
-        function buka(type) {
-            if (type == 'overlay') {
-                overlay.style.display = "flex";
-                pilihan.style.display = "block";
-            } else if (type == 'langsung') {
-                pilihan.style.display = "none";
-                daftarPeserta.style.display = "flex";
-            } else if (type == 'acak') {
-                acak.style.display = "flex";
-                pilihan.style.display = "none";
-
-                // Tampilkan animasi loading
-                acak.innerHTML = `<h1 class="pilih-acak">Memilih Acak</h1>
-                                <div class="lds-roller">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>`;
-
-                // Tunggu selama 2 detik sebelum mengambil peserta acak
-                setTimeout(function () {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200) {
-                            acak.innerHTML = xhttp.responseText;
-                        }
-                    };
-
-                    xhttp.open("GET", "peserta-acak.php", true);
-                    xhttp.send();
-                }, 3000);
-            }
-
-        }
-
-        function tutup(type) {
-            if (type == "pilihan") {
-                overlay.style.display = "none";
-            } else if (type == "langsung") {
-                daftarPeserta.style.display = "none";
-                pilihan.style.display = "block";
-            } else if (type == "acak") {
-                acak.style.display = "none";
-                pilihan.style.display = "block";
-            }
-        }
-
-        function tampilkan(id) {
-            console.log(id);
-            window.location = `../functions/index.php?id-tampilkan=${id}`;
-        }
-
-        function hentikan(id) {
-            window.location = `../functions/index.php?id-hentikan=${id}`;
-        }
-
-        function updateStarRating(total) {
-            var starClasses = ['', '', '', '', ''];
-
-            if (total >= 1 && total <= 1.9) {
-                if (total > 1 && total <= 1.9) {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-half';
-                } else {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '';
-                }
-            } else if (total >= 2 && total <= 2.9) {
-                if (total > 2 && total <= 2.9) {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '-half';
-                } else {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '';
-                }
-            } else if (total >= 3 && total <= 3.9) {
-                if (total > 3 && total <= 3.9) {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '-fill';
-                    starClasses[3] = '-half';
-                } else {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '-fill';
-                    starClasses[3] = '';
-                }
-            } else if (total >= 4 && total <= 4.9) {
-                if (total > 4 && total <= 4.9) {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '-fill';
-                    starClasses[3] = '-fill';
-                    starClasses[4] = '-half';
-                } else {
-                    starClasses[0] = '-fill';
-                    starClasses[1] = '-fill';
-                    starClasses[2] = '-fill';
-                    starClasses[3] = '-fill';
-                    starClasses[4] = '';
-                }
-            } else if (total >= 5) {
-                starClasses = ['-fill', '-fill', '-fill', '-fill', '-fill'];
-            }
-
-            // Update kelas-kelas bintang sesuai dengan kalkulasi di atas
-            var starElements = document.querySelectorAll('.live-skor .bintang i');
-            for (var i = 0; i < starClasses.length; i++) {
-                starElements[i].className = 'bi bi-star' + starClasses[i] + ' ' + (i + 1);
-            }
-        }
-
-
+        let skor = document.querySelector('.skor-tampil');
         function updateLiveScore() {
-            fetch('../get-live-score.php').then(response => response.json())
-                .then(data => {
-                    document.querySelector('.live-skor .skor span').textContent = 'Skor = ' + data.score;
-                    updateStarRating(data.score);
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status == 200) {
+                    console.log("Peserta tampil: " + idPesertaTampilkan);
+                    console.log(xhr.responseText)
+                    skor.innerHTML = "Skor = " + xhr.responseText;
+                    updateStarRating(xhr.responseText);
+                }
+            }
+
+            xhr.open("GET", "../get-live-score.php?id=" + <?= $idTampilanPeserta ?>, true);
+            xhr.send();
         }
 
         setInterval(updateLiveScore, 1000);
-
-
-        let keyword = document.getElementById('keyword');
-        let scroll = document.querySelector('.scroll');
-        keyword.addEventListener('keyup', () => {
-
-            let xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    scroll.innerHTML = xhr.responseText;
-                }
-            }
-
-            xhr.open("GET", `live-search.php?keyword-tampilkan=${keyword.value}`, true);
-            xhr.send();
-        })
-
     </script>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
