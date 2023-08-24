@@ -318,10 +318,10 @@
     .overlay .nilai h2 {
         color: var(--hijau);
     }
-     {
+    /* {
         color: var(--hijau);
         font-size: 25px;
-    }
+    } */
 
     .overlay .nilai button.btn-kirim {
         width: 80% !important;
