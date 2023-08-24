@@ -46,6 +46,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="daftar-peserta.php">Daftar Peserta</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lihat-skor.php">Lihat Skor</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -74,7 +77,7 @@
                     <input type="file" name="foto" id="foto" class="form-control">
                 </div>
                 <div class="mt-4">
-                    <button class="btn btn-tambah" type="submit" name="tambah-peserta" >Tambah</button>
+                    <button class="btn btn-tambah" type="submit" name="tambah-peserta">Tambah</button>
                 </div>
             </form>
         </div>

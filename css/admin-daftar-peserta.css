@@ -16,6 +16,41 @@
     height: 80vh;
 }
 
+.daftar-peserta .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.daftar-peserta .header .item {
+    width: calc(100% / 3);
+}
+
+.daftar-peserta .header .item.input {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.daftar-peserta .header .item.input input {
+    width: 60%;
+}
+
+.daftar-peserta .header .item.input i {
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: black;
+    font-size: 18px;
+}
+
+.daftar-peserta .header h1 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
 .daftar-peserta .scroll {
     padding: 20px 20px;
     width: 100%;
@@ -25,6 +60,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 25px;
+    margin-top: 20px;
 }
 
 .daftar-peserta .scroll .box {
@@ -78,7 +114,6 @@
 ::-webkit-scrollbar {
     border-radius: 20px;
     width: 10px;
-    height: 10px;
 }
 
 /* Scrollbar Track */
@@ -260,7 +295,7 @@
     }
     .daftar-peserta .scroll .box .deskripsi p {
         margin: 0;
-        font-size: 13px; 
+        font-size: 13px;
     }
 
     .overlay .detail {
