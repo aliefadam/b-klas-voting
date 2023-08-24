@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Agu 2023 pada 15.00
+-- Waktu pembuatan: 24 Agu 2023 pada 13.41
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `login`
+--
+
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `login`
+--
+
+INSERT INTO `login` (`id`, `username`, `password`) VALUES
+(1, 'admin', '$2y$10$gd1/IzPoZ3EFE3CII6I0C.z1TDlGrgc0vmVdr/docXIeJlD9a8vkS');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `penampilan`
 --
 
@@ -38,11 +57,30 @@ CREATE TABLE `penampilan` (
 --
 
 INSERT INTO `penampilan` (`id`, `id_peserta`, `total_skor`) VALUES
-(8, 10, 0),
-(9, 11, 0),
-(10, 13, 0),
-(11, 12, 0),
-(12, 14, 0);
+(1, 1, 0),
+(2, 2, 0),
+(3, 3, 0),
+(4, 4, 0),
+(5, 3, 0),
+(6, 4, 0),
+(7, 1, 0),
+(8, 4, 0),
+(9, 1, 0),
+(10, 2, 0),
+(11, 3, 0),
+(12, 3, 0),
+(13, 2, 0),
+(14, 1, 0),
+(15, 4, 0),
+(16, 3, 0),
+(17, 1, 0),
+(18, 2, 0),
+(19, 4, 0),
+(20, 4, 0),
+(21, 1, 0),
+(22, 2, 0),
+(23, 3, 0),
+(24, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -78,13 +116,41 @@ CREATE TABLE `peserta` (
 --
 
 INSERT INTO `peserta` (`id`, `nama`, `dawis`, `penampilan`, `foto`, `status`) VALUES
-(10, 'Alief adam', 5, 'Penampilan Tari Remo', '230822105427.jpg', 'Sudah ditampilkan'),
-(11, 'Ardian Monang', 7, 'Atraksi Sembur Api', '230822110814.jpg', 'Sudah ditampilkan'),
-(14, 'Alief Adam', 5, 'Stand Up Comedi - Roasting Pemerintah', '230822025809.jpg', 'Sedang ditampilkan');
+(1, 'Alief adam', 21, 'Reog', '230824102413.jpg', 'Belum ditampilkan'),
+(2, 'Baim', 24, 'Testing', '230824105809.jpg', 'Sedang ditampilkan'),
+(3, 'Ardian Monang', 7, 'Dolanan Ilmu Magic', '230824113716.png', 'Belum ditampilkan'),
+(4, 'ssss', 12, 'sssss', '230824122001.png', 'Belum ditampilkan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `nama`) VALUES
+(1, 'Penonton'),
+(2, 'Penonton 2'),
+(3, 'Penonton 3'),
+(4, 'Penonton 4');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `penampilan`
@@ -105,14 +171,26 @@ ALTER TABLE `peserta`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `penampilan`
 --
 ALTER TABLE `penampilan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
@@ -124,7 +202,13 @@ ALTER TABLE `penilaian`
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
