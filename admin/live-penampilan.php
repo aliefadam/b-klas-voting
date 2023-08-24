@@ -1,11 +1,8 @@
 <?php
-// Include file yang berisi definisi fungsi getPesertaDitampilkan()
-include '../functions/index.php'; // Ganti dengan path yang sesuai
+include '../functions/index.php';
 
-// Panggil fungsi getPesertaDitampilkan() untuk mendapatkan hasil
 $hasil = getPesertaDitampilkan();
 
-// Buat variabel $html dengan isi yang sesuai dengan div .penampilan
 $html = '';
 
 if (!empty($hasil) && $hasil['status'] == "Sedang ditampilkan") {
@@ -14,12 +11,11 @@ if (!empty($hasil) && $hasil['status'] == "Sedang ditampilkan") {
     $dawis = $hasil['dawis'];
     $penampilan = $hasil['penampilan'];
     $foto = $hasil['foto'];
-    $skor = getRataRataUlasan($id); // Perbarui skor sesuai peserta yang sedang ditampilkan
+    $skor = getRataRataUlasan($id);
 
     $html .= '<div class="keterangan">';
     $html .= '<p><i class="bi bi-circle-fill me-2"></i>Sedang Tampil</p>';
 
-    // Anda dapat menambahkan kondisi lain di sini sesuai kebutuhan
     if (validBeriUlasan($_COOKIE['nama'], $id)) {
         $html .= '<button type="button" class="btn btn-sm btn-primary nilai" onclick="buka(\'nilai\', \'' . $id . '\', \'' . $_COOKIE['nama'] . '\')"><i class="bi bi-star-fill"></i> Beri Nilai</button>';
     }
@@ -28,11 +24,10 @@ if (!empty($hasil) && $hasil['status'] == "Sedang ditampilkan") {
     $html .= '<h1 class="nama">' . $nama . '</h1>';
     $html .= '<p class="dawis">Dawis ' . $dawis . '</p>';
     $html .= '<img class="foto shadow-lg" src="gambar-upload/' . $foto . '" alt="">';
-    $html .= '<h1 class="judul-penampilan">" ' . $penampilan . ' "</h1>';
+    $html .= '<h1 class="judul-penampilan">"' . $penampilan . '"</h1>';
     $html .= '<div class="live-skor">';
-    $html .= '<div class="skor"><span>Skor = ' . $skor . '</span></div>';
+    $html .= '<div class="skor"><span>Rating : ' . $skor . '</span></div>';
 
-    // Kode untuk menambahkan bintang sesuai dengan nilai
     $starClasses = ['', '', '', '', ''];
     if ($skor >= 1 && $skor <= 1.9) {
         if ($skor > 1 && $skor <= 1.9) {
@@ -91,8 +86,11 @@ if (!empty($hasil) && $hasil['status'] == "Sedang ditampilkan") {
     $html .= '</div></div>';
 } else {
     // Jika tidak ada peserta yang tampil
-    $html .= '<h1 class="keterangan-tampil">TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>';
-    $html .= '<h1 class="keterangan-tampil-2">MOHON MENUNGGU INFORMASI DARI PANITIA</h1>';
+    $html = '<div class="tidak-ada-peserta">';
+    $html .= '<i class="bi bi-question-octagon"></i>';
+    $html .= '<h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>';
+    $html .= '</div>';
+
 }
 
 // Kembalikan hasil dalam format HTML

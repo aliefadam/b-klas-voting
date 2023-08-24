@@ -36,7 +36,7 @@ function bukaOverlay(type) {
 
             xhttp.open("GET", "peserta-acak.php", true);
             xhttp.send();
-        }, 3000);
+        }, 2000);
     }
 
 }
@@ -56,8 +56,21 @@ function tutup(type) {
 let idPesertaTampilkan;
 
 function tampilkan(idUser) {
-    idPesertaTampilkan = idUser;
-    window.location = `../functions/index.php?id-tampilkan=${idUser}`;
+    Swal.fire({
+        title: 'Apakah yakin?',
+        text: "Ingin menampilkan peserta ini",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Tampilkan',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            idPesertaTampilkan = idUser;
+            window.location = `../functions/index.php?id-tampilkan=${idUser}`;
+        }
+    })
 }
 
 function hentikan(id) {

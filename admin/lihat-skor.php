@@ -35,24 +35,29 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">B-KLAS GOT TALENTS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <a class="navbar-brand" href="#">
+                <img src="../img/1692899163617.png" alt="">
+                <span class="">B-KLAS GOT TALENTS</span>
+            </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Penampilan</a>
+                        <a class="nav-link" aria-current="page" href="index.php"><i
+                                class="me-1 bi bi-camera-reels-fill"></i> Penampilan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tambah-peserta.php">Tambah Peserta</a>
+                        <a class="nav-link" href="tambah-peserta.php"><i class="me-1 bi bi-patch-plus"></i> Tambah
+                            Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="daftar-peserta.php">Daftar Peserta</a>
+                        <a class="nav-link" href="daftar-peserta.php"><i class="me-1 bi bi-card-list"></i> Daftar
+                            Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="lihat-skor.php">Lihat Skor</a>
+                        <a class="nav-link active" href="lihat-skor.php"><i class="me-1 bi bi-table"></i> Lihat Skor</a>
                     </li>
                 </ul>
             </div>

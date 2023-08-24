@@ -11,9 +11,10 @@ if (!isset($_SESSION['login'])) {
 <html lang="en">
 
 <head>
+    <link rel="icon" href="../img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>B-KLAS GOT TALENTS | PENAMPILAN</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
@@ -22,7 +23,6 @@ if (!isset($_SESSION['login'])) {
 
     <!-- icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,9 +41,12 @@ if (!isset($_SESSION['login'])) {
 <body>
 
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
         <div class="container">
-            <a class="navbar-brand" href="#">B-KLAS GOT TALENTS</a>
+            <a class="navbar-brand" href="#">
+                <img src="../img/1692899163617.png" alt="">
+                <span class="">B-KLAS GOT TALENTS</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,22 +54,26 @@ if (!isset($_SESSION['login'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Penampilan</a>
+                        <a class="nav-link active" aria-current="page" href="index.php"><i
+                                class="me-1 bi bi-camera-reels-fill"></i> Penampilan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tambah-peserta.php">Tambah Peserta</a>
+                        <a class="nav-link" href="tambah-peserta.php"><i class="me-1 bi bi-patch-plus"></i> Tambah
+                            Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="daftar-peserta.php">Daftar Peserta</a>
+                        <a class="nav-link" href="daftar-peserta.php"><i class="me-1 bi bi-card-list"></i> Daftar
+                            Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="lihat-skor.php">Lihat Skor</a>
+                        <a class="nav-link" href="lihat-skor.php"><i class="me-1 bi bi-table"></i> Lihat Skor</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- akhir navbar -->
+
 
     <!-- content -->
     <div class="container kotak">
@@ -94,12 +101,12 @@ if (!isset($_SESSION['login'])) {
                         <?= $dawis ?>
                     </p>
                     <img class="foto shadow-lg" src="../gambar-upload/<?= $foto ?>" alt="">
-                    <h1 class="judul-penampilan">"
-                        <?= $penampilan ?> "
+                    <h1 class="judul-penampilan">
+                        <?= "\"" . $penampilan ?>"
                     </h1>
                     <div class="live-skor">
                         <div class="skor">
-                            <span class="skor-tampil">Skor =
+                            <span class="text-warning skor-tampil">Rating :
                                 <?= (getRataRataUlasan($idTampilanPeserta) == "" ? 0 : getRataRataUlasan($idTampilanPeserta)) ?>
                             </span>
                         </div>
@@ -155,18 +162,21 @@ if (!isset($_SESSION['login'])) {
                                 $starClasses = ['-fill', '-fill', '-fill', '-fill', '-fill'];
                             }
                             ?>
-                            <i class="bi bi-star<?= $starClasses[0] ?> satu"></i>
-                            <i class="bi bi-star<?= $starClasses[1] ?> dua"></i>
-                            <i class="bi bi-star<?= $starClasses[2] ?> tiga"></i>
-                            <i class="bi bi-star<?= $starClasses[3] ?> empat"></i>
-                            <i class="bi bi-star<?= $starClasses[4] ?> lima"></i>
+                            <i class="text-warning bi bi-star<?= $starClasses[0] ?> satu"></i>
+                            <i class="text-warning bi bi-star<?= $starClasses[1] ?> dua"></i>
+                            <i class="text-warning bi bi-star<?= $starClasses[2] ?> tiga"></i>
+                            <i class="text-warning bi bi-star<?= $starClasses[3] ?> empat"></i>
+                            <i class="text-warning bi bi-star<?= $starClasses[4] ?> lima"></i>
                         </div>
                     </div>
                 <?php endif; ?>
             <?php else: ?>
                 <!-- jika tidak ada peserta yang tampil -->
-                <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
-                <button type="button" class="btn tampilkan" onclick="bukaOverlay('overlay')">Tampilkan Peserta</button>
+                <div class="tidak-ada-peserta">
+                    <i class="bi bi-question-octagon"></i>
+                    <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
+                    <button type="button" class="btn tampilkan" onclick="bukaOverlay('overlay')">Tampilkan Peserta</button>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -174,11 +184,11 @@ if (!isset($_SESSION['login'])) {
 
     <div class="overlay overlay animate__animated animate__fadeIn" style="display: none">
         <div class="pilihan detail animate__animated animate__pulse" style="display: none">
-            <i class=" bi bi-x-circle" onclick="tutup('pilihan')"></i>
+            <i class="bi bi-x-circle" onclick="tutup('pilihan')"></i>
             <h2>Pilih metode untuk menampilkan</h2>
-            <div class=" aksi mt-3">
+            <div class="aksi mt-3">
                 <button type="button" class="btn btn-success btn-acak" onclick="bukaOverlay('acak')">Pilih Acak</button>
-                <button type="button" class="btn btn-primary btn-langsung" onclick="bukaOverlay('langsung')">Pilih
+                <button type="button" class="btn btn-danger btn-langsung" onclick="bukaOverlay('langsung')">Pilih
                     Langsung</button>
             </div>
         </div>
@@ -194,8 +204,6 @@ if (!isset($_SESSION['login'])) {
                     <input type="text" placeholder="Cari peserta" name="keyword" id="keyword"
                         class="item form-control input-cari-peserta" onkeyup="liveSearch()">
                 </div>
-
-
             </div>
             <div class="scroll">
                 <?php foreach (getPesertaBelumDitampilkan() as $peserta): ?>
@@ -224,7 +232,6 @@ if (!isset($_SESSION['login'])) {
                     </div>
                 <?php endforeach ?>
             </div>
-
             <script>
                 let keyword = document.querySelector('.input-cari-peserta');
                 let scroll = document.querySelector('.scroll');
@@ -236,7 +243,6 @@ if (!isset($_SESSION['login'])) {
                             scroll.innerHTML = xml.responseText;
                         }
                     }
-
                     xml.open("GET", `live-search.php?keyword-tampilkan=${keyword.value}`, true);
                     xml.send();
                 })
@@ -255,7 +261,7 @@ if (!isset($_SESSION['login'])) {
                 if (xhr.readyState === 4 && xhr.status == 200) {
                     console.log("Peserta tampil: " + idPesertaTampilkan);
                     console.log(xhr.responseText)
-                    skor.innerHTML = "Skor = " + xhr.responseText;
+                    skor.innerHTML = "Rating : " + xhr.responseText;
                     updateStarRating(xhr.responseText);
                 }
             }

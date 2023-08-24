@@ -8,12 +8,34 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--warna3);
+    background-color: var(--hijaumudah);
     color: white;
     border-radius: 20px;
     position: relative;
 }
 
+.penampilan .tidak-ada-peserta {
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.penampilan .tidak-ada-peserta h1 {
+    margin-top: -20px;
+    color: #f3ea65;
+    text-shadow: 2px 2px 5px rgba(37, 77, 20, 0.9);
+}
+
+.penampilan .tidak-ada-peserta i {
+    margin-top: -30px;
+    font-size: 100px;
+    margin-bottom: 0;
+    color: #f3ea65;
+    text-shadow: 2px 2px 5px rgba(37, 77, 20, 0.9);
+}
 .penampilan .keterangan {
     width: 100%;
     position: absolute;
@@ -29,6 +51,8 @@
     width: 100%;
     margin: 0;
     font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(37, 77, 20, 0.9);
 }
 
 .penampilan .keterangan p i {
@@ -70,17 +94,22 @@
 }
 
 .penampilan h1.nama {
-    font-size: 50px;
+    font-size: 40px;
     margin: 0;
+    color: var(--hijau);
+}
+
+.penampilan p.dawis {
+    font-size: 23px;
+    margin: 0;
+    color: var(--hijau);
+    font-weight: 600;
 }
 
 .penampilan h1.judul-penampilan {
     text-transform: uppercase;
-}
-
-.penampilan p.dawis {
-    font-size: 25px;
-    margin: 0;
+    color: var(--hijau);
+    font-weight: 600;
 }
 
 .penampilan img.foto {
@@ -113,6 +142,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #eaffe2;
+    padding: 5px 10%;
+    border-radius: 10px;
 }
 
 .penampilan .live-skor .bintang {
@@ -123,10 +155,12 @@
 .penampilan .live-skor .skor span,
 .penampilan .live-skor .bintang i {
     font-size: 25px;
+    font-weight: 600;
+    color: #ffc107;
 }
 
 .penampilan .live-skor .bintang i {
-    color: yellow;
+    color: #ffc107;
 }
 
 .penampilan h1 {
@@ -152,28 +186,37 @@
     background-color: rgba(0, 0, 0, 0.9);
 }
 
+.overlay .nilai h2 {
+    color: var(--hijau);
+}
+
 .overlay .nilai {
     width: 30%;
     padding: 30px;
-    background-color: var(--warna2);
     border-radius: 15px;
-    border: 3px solid white;
+    border: 3px solid var(--hijau);
+    background-color: var(--hijaumudah);
     text-align: center;
     color: white;
     position: relative;
 }
 
 .overlay .nilai i.close {
-    color: white;
+    color: var(--hijau);
     font-size: 40px;
     cursor: pointer;
     position: absolute;
     top: -15px;
     right: -20px;
     display: flex;
-    background-color: var(--warna2);
+    background-color: var(--hijaumudah);
     border-radius: 50%;
-    transition: 300ms;
+    transition: 200ms;
+}
+
+.overlay .nilai i.close:hover {
+    background-color: #dc3545;
+    color: white;
 }
 
 .overlay .nilai .bintang {
@@ -207,8 +250,81 @@
     margin-bottom: 0;
 }
 
-@media only screen and (max-width: 425px) {
-    .container.kotak {
-        width: 85%;
+.swal2-container {
+    z-index: 9999999;
+}
+
+@media only screen and (max-width: 768px) {
+    /* screen penampilan peserta*/
+
+    .penampilan {
+        position: relative;
+    }
+
+    .penampilan h1.nama {
+        font-size: 23px;
+    }
+
+    .penampilan p.dawis {
+        font-size: 20px;
+    }
+
+    .penampilan h1.judul-penampilan {
+        font-size: 25px;
+    }
+
+    .penampilan .live-skor {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .penampilan .live-skor .bintang {
+        gap: 10px;
+    }
+
+    .penampilan .live-skor .skor span,
+    .penampilan .live-skor .bintang i {
+        font-size: 15px;
+    }
+
+    .penampilan .keterangan button.btn {
+        width: 150px;
+    }
+
+    /* peserta tidak ada */
+    .penampilan .tidak-ada-peserta i {
+        font-size: 60px;
+        margin: 0;
+    }
+
+    .penampilan .tidak-ada-peserta h1 {
+        font-size: 25px;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* berikan ulasan */
+    .detail {
+        width: 85% !important;
+    }
+
+    .overlay .nilai {
+        border: 3px solid var(--hijau);
+        background-color: var(--hijaumudah);
+    }
+
+    .overlay .nilai h2 {
+        color: var(--hijau);
+    }
+     {
+        color: var(--hijau);
+        font-size: 25px;
+    }
+
+    .overlay .nilai button.btn-kirim {
+        width: 80% !important;
+        font-size: 15px;
     }
 }

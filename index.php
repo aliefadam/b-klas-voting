@@ -12,7 +12,7 @@ if (!cekMasuk()) {
 <html lang="en">
 
 <head>
-
+    <link rel="icon" href="img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>B-KLAS GOT TALENTS | PENAMPILAN</title>
@@ -44,7 +44,10 @@ if (!cekMasuk()) {
     <!-- navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">B-KLAS GOT TALENTS</a>
+            <a class="navbar-brand" href="#">
+                <img src="img/1692899163617.png" alt="">
+                <span class="">B-KLAS GOT TALENTS</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,7 +55,8 @@ if (!cekMasuk()) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Penampilan</a>
+                        <a class="nav-link active" aria-current="page" href="index.php"><i
+                                class="bi bi-camera-reels-fill"></i> Penampilan</a>
                     </li>
                 </ul>
             </div>
@@ -88,12 +92,12 @@ if (!cekMasuk()) {
                         <?= $dawis ?>
                     </p>
                     <img class="foto shadow-lg" src="gambar-upload/<?= $foto ?>" alt="">
-                    <h1 class="judul-penampilan">"
-                        <?= $penampilan ?> "
+                    <h1 class="judul-penampilan">
+                        <?= "\"" . $penampilan ?>"
                     </h1>
                     <div class="live-skor">
                         <div class="skor">
-                            <span>Skor =
+                            <span>Rating :
                                 <?= getRataRataUlasan($id) ?>
                             </span>
                         </div>
@@ -159,8 +163,10 @@ if (!cekMasuk()) {
                 <?php endif; ?>
             <?php else: ?>
                 <!-- jika tidak ada peserta yang tampil -->
-                <h1 class="keterangan-tampil">TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
-                <h1 class="keterangan-tampil-2">MOHON MENUNGGU INFORMASI DARI PANITIA</h1>
+                <div class="tidak-ada-peserta">
+                    <i class="bi bi-question-octagon"></i>
+                    <h1>TIDAK ADA PESERTA YANG SEDANG TAMPIL</h1>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -198,7 +204,7 @@ if (!cekMasuk()) {
     <div class="overlay animate__animated animate__fadeIn" style="display: none">
         <div class="nilai detail animate__animated animate__pulse">
             <i class="close bi bi-x-circle" onclick="tutup('nilai')"></i>
-            <h2>Berikan Ulasan</h2>
+            <h2>Berikan Bintang</h2>
             <div class="bintang">
                 <i class="bi bi-star-fill satu" onclick="bintang(1)"></i>
                 <i class="bi bi-star-fill dua" onclick="bintang(2)"></i>
@@ -234,7 +240,14 @@ if (!cekMasuk()) {
         let komentar = document.getElementById('komentarInput');
 
         function kirimUlasan() {
-            window.location = `functions/index.php?id-peserta=${idPeserta}&nama-user=${namaUser}&bintang=${bintangDiklik}&komentar=${komentar.value}`;
+            if (bintangDiklik === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Silahkan berikan bintang terlebih dahulu',
+                })
+            } else {
+                window.location = `functions/index.php?id-peserta=${idPeserta}&nama-user=${namaUser}&bintang=${bintangDiklik}&komentar=${komentar.value}`;
+            }
         }
 
         function buka(type, id, nama) {
@@ -244,6 +257,12 @@ if (!cekMasuk()) {
         }
         function tutup(type) {
             if (type == "nilai") {
+                bintangSatu.style.color = "";
+                bintangDua.style.color = "";
+                bintangTiga.style.color = "";
+                bintangEmpat.style.color = "";
+                bintangLima.style.color = "";
+                bintangDiklik = 0;
                 overlay.style.display = "none";
             }
         }
@@ -348,7 +367,7 @@ if (!cekMasuk()) {
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status == 200) {
-                    document.querySelector('.live-skor .skor span').innerHTML = "Skor = " + xhr.responseText;
+                    document.querySelector('.live-skor .skor span').innerHTML = "Rating : " + xhr.responseText;
                     updateStarRating(xhr.responseText);
                 }
             }
