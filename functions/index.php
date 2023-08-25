@@ -3,7 +3,7 @@
 session_start();
 
 $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-// $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
+// $koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -26,7 +26,7 @@ function tambahPeserta($data, $data_gambar)
 
     $stmt->bind_param("sisss", $nama, $dawis, $penampilan, $namaFoto, $status);
     $stmt->execute();
-    $_SESSION['notifikasi'] = "Berhasil menambah peserta";
+    // $_SESSION['notifikasi'] = "Berhasil menambah peserta";
     header("Location: ../admin/tambah-peserta.php");
 }
 
@@ -102,7 +102,7 @@ function hapus($nama)
 
     $stmt->bind_param("s", $nama);
     $stmt->execute();
-    $_SESSION['notifikasi'] = "Berhasil menghapus peserta";
+    // $_SESSION['notifikasi'] = "Berhasil menghapus peserta";
     header('Location: ../admin/daftar-peserta.php');
 }
 

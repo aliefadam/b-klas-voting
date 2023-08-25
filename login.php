@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>B-KLAS GOT TALENTS | PENAMPILAN</title>

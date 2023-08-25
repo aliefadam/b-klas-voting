@@ -74,7 +74,20 @@ function tampilkan(idUser) {
 }
 
 function hentikan(id) {
-    window.location = `../functions/index.php?id-hentikan=${id}`;
+    Swal.fire({
+        title: 'Apakah yakin?',
+        text: "Ingin menghentikan penampilan peserta ini",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Tampilkan',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location = `../functions/index.php?id-hentikan=${id}`;
+        }
+    })
 }
 
 function updateStarRating(total) {
