@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
+<?php include('../functions/index.php') ?>
 
 <head>
+    <link rel="icon" href="../img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>B-KLAS GOT TALENTS | TAMBAH PESERTA</title>
@@ -64,6 +66,21 @@
         </div>
     </nav>
     <!-- akhir navbar -->
+
+    <?php if (isset($_SESSION['notifikasi'])): ?>
+        <?php $pesan = $_SESSION['notifikasi']; ?>
+        <script>
+            Swal.fire({
+                title: 'Sukses!',
+                text: "<?= $pesan ?>",
+                icon: 'success',
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Baik',
+            });
+        </script>
+        <?php $_SESSION['notifikasi'] = []; ?>
+    <?php endif; ?>
 
     <!-- content -->
     <div class="container kotak">

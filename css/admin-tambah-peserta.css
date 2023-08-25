@@ -1,13 +1,31 @@
 @import url("style.css");
 
+body {
+    position: relative;
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .form {
+    position: relative;
     display: flex;
     padding: 30px;
     align-items: center;
     flex-direction: column;
     width: 60%;
-    background-color: var(--warna3);
-    color: white;
+    background-color: var(--hijaumudah);
+    color: var(--hijau);
     border-radius: 20px;
     overflow-y: auto;
 }
@@ -24,7 +42,7 @@
     background-color: var(--warna1);
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 768px) {
     .form {
         width: 90%;
         min-height: 400px;

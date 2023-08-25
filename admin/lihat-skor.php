@@ -3,9 +3,10 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="../img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>B-KLAS GOT TALENTS | PENILAIAN</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
@@ -68,10 +69,19 @@
     <!-- content -->
     <div class="container kotak">
         <div class="data">
-            <h1>Hasil Penilaian Peserta</h1>
+            <div class="header mt-2">
+                <div class="item"></div>
+                <div class="item">
+                    <h1 class="">Hasil Penilaian Peserta</h1>
+                </div>
+                <div class="item input">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Cari peserta" name="keyword" id="keyword" class="item form-control">
+                </div>
+            </div>
             <div class="scroll">
                 <table class="table">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
                             <th>No</th>
                             <th>Nama Peserta</th>
@@ -107,6 +117,26 @@
         </div>
     </div>
     <!-- akhir content -->
+
+    <script>
+        let keyword = document.getElementById('keyword');
+        let scroll = document.querySelector('.scroll');
+        keyword.addEventListener('keyup', () => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    scroll.innerHTML = xhr.responseText;
+                }
+            }
+
+            xhr.open("GET", `live-search-penilaian.php?keyword=${keyword.value}`, true);
+            xhr.send();
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

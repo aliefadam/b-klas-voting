@@ -255,6 +255,7 @@ if (!cekMasuk()) {
             namaUser = nama;
             if (type == "nilai") { overlay.style.display = "flex"; }
         }
+
         function tutup(type) {
             if (type == "nilai") {
                 bintangSatu.style.color = "";

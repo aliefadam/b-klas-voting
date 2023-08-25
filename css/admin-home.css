@@ -1,5 +1,22 @@
 @import url("style.css");
 
+body {
+    position: relative;
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .penampilan {
     width: 100%;
     height: 85vh;
@@ -519,13 +536,13 @@ h1.pilih-acak {
 
 @media only screen and (max-width: 768px) {
     /* screen penampilan peserta*/
-
     .penampilan {
         position: relative;
     }
 
     .penampilan h1.nama {
         font-size: 23px;
+        text-align: center;
     }
 
     .penampilan p.dawis {
@@ -533,7 +550,8 @@ h1.pilih-acak {
     }
 
     .penampilan h1.judul-penampilan {
-        font-size: 25px;
+        font-size: 20px;
+        text-align: center;
     }
 
     .penampilan .live-skor {

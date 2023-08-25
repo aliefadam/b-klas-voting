@@ -1,13 +1,31 @@
 @import url("style.css");
 
+body {
+    position: relative;
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .daftar-peserta {
+    position: relative;
     display: flex;
     padding: 30px;
     align-items: center;
     flex-direction: column;
     width: 60%;
-    background-color: var(--warna3);
-    color: white;
+    background-color: var(--hijaumudah);
+    color: var(--hijau);
     border-radius: 20px;
 }
 
@@ -70,7 +88,9 @@
     border-radius: 15px;
     transition: 300ms;
     cursor: pointer;
-    background-color: var(--warna2);
+    color: white;
+    background-color: #5f9e44;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .daftar-peserta .scroll .box:hover {
@@ -80,7 +100,6 @@
 .daftar-peserta .scroll .box .gambar {
     width: 100%;
     height: 70%;
-    border: 1px solid white;
     background-color: white;
     border-radius: 15px;
     overflow: hidden;
@@ -109,11 +128,11 @@
 .daftar-peserta .scroll .box .deskripsi p {
     margin: 0;
 }
-
 /* Width and Height of the scrollbar track */
 ::-webkit-scrollbar {
     border-radius: 20px;
     width: 10px;
+    height: 10px;
 }
 
 /* Scrollbar Track */
@@ -124,13 +143,13 @@
 
 /* Scrollbar Thumb */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--warna1);
     border-radius: 5px;
 }
 
 /* Hover state on Thumb */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #1a3a0c;
 }
 
 /* Scrollbar Button (arrows) */
@@ -152,7 +171,7 @@
 
 .overlay .detail {
     border-radius: 15px;
-    background-color: var(--warna2);
+    background-color: var(--hijaumudah);
     width: 50%;
     height: 90vh;
     padding: 0 50px;
@@ -160,31 +179,37 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 3px solid white;
+    border: 3px solid var(--hijau);
 }
 
 .overlay .detail i,
 .editPeserta .wrap i {
-    color: white;
+    color: var(--hijau);
     font-size: 40px;
     cursor: pointer;
     position: absolute;
     top: -15px;
     right: -20px;
     display: flex;
-    background-color: var(--warna2);
+    background-color: var(--hijaumudah);
     border-radius: 50%;
-    transition: 300ms;
+    transition: 200ms;
 }
 
 .overlay .detail i:hover {
-    background-color: #2c323f;
+    background-color: #dc3545;
+    color: white;
+}
+
+.editPeserta .wrap i:hover {
+    background-color: #dc3545;
+    color: white;
 }
 
 .overlay .detail i.sampah {
     font-size: 20px;
     padding: 7px;
-    border: 3px solid white;
+    border: 3px solid var(--hijau);
     top: 50px !important;
     right: -20px !important;
 }
@@ -196,7 +221,7 @@
 .overlay .detail i.edit {
     font-size: 20px;
     padding: 7px;
-    border: 3px solid white;
+    border: 3px solid var(--hijau);
     top: 100px !important;
     right: -20px !important;
 }
@@ -216,16 +241,22 @@
     text-transform: uppercase;
     margin-top: 20px;
     margin-bottom: 0;
-    color: white;
+    color: var(--hijau);
+    font-size: 30px;
 }
+
 .overlay .detail .penampilanOverlay {
     text-transform: uppercase;
-    color: white;
+    color: var(--hijau);
+    font-size: 25px;
 }
+
 .overlay .detail .dawisOverlay {
     margin-top: 5px;
-    color: white;
+    font-size: 25px;
+    color: var(--hijau);
 }
+
 .overlay .detail h2 {
     margin-top: 1.5rem;
 }
@@ -249,9 +280,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: var(--warna2);
-    padding: 2% 3%;
-    color: white;
+    background-color: var(--hijaumudah);
+    padding: 30px;
+    border: 3px solid var(--hijau);
+    color: var(--hijau);
     border-radius: 15px;
 }
 
@@ -275,11 +307,53 @@
     flex-direction: column;
 }
 
-@media only screen and (max-width: 425px) {
+.editPeserta .wrap form button.btn {
+    margin: 0 auto;
+    display: block;
+    background-color: var(--hijau);
+    color: white;
+    width: 30%;
+}
+
+.editPeserta .wrap form button.btn i {
+    display: initial;
+    position: initial;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+    border-radius: 0;
+    color: white;
+}
+
+.swal2-container {
+    z-index: 999999999;
+}
+
+@media only screen and (max-width: 768px) {
     .daftar-peserta {
         padding-left: 0%;
         padding-right: 0%;
     }
+
+    .daftar-peserta .header {
+        display: flex;
+        flex-direction: column !important;
+        gap: 15px;
+        padding: 5px 20px;
+    }
+
+    .daftar-peserta .header .item:first-child {
+        display: none;
+    }
+
+    .daftar-peserta .item {
+        width: 100% !important;
+    }
+
+    .daftar-peserta .item h1 {
+        width: 100% !important;
+        font-size: 26px;
+    }
+
     .daftar-peserta .scroll {
         flex-direction: row;
     }
@@ -310,17 +384,24 @@
         object-fit: cover;
         border-radius: 15px;
         margin-bottom: 20px;
+        background-color: white;
     }
 
-    .overlay .detail h1 {
-        font-size: calc(1.3rem + 1.3vw);
+    .overlay .detail .namaOverlay {
+        margin-top: 20px;
+        font-size: 20px;
+        text-align: center;
     }
-    .overlay .detail h3 {
-        font-size: calc(1rem + 0.8vw);
+
+    .overlay .detail .penampilanOverlay {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
     }
-    .overlay .detail h2 {
-        font-size: calc(1.3rem + 1vw);
-        margin-top: 3%;
+
+    .overlay .detail .dawisOverlay {
+        margin-top: 5px;
+        font-size: 18px;
     }
 
     .editPeserta .wrap {
@@ -331,5 +412,10 @@
 
     .editPeserta .wrap form img#fotoLama {
         width: 50%;
+    }
+
+    .editPeserta .wrap form button.btn {
+        width: 150px !important;
+        font-size: 13px;
     }
 }

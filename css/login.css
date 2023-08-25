@@ -5,16 +5,32 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative; /* Tambahkan posisi relatif untuk menempatkan pseudo-element */
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-size: cover; /* Sesuaikan ukuran latar belakang agar mengisi layar */
+}
+
+/* Tambahkan pseudo-element ::before untuk overlay transparan */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Ubah nilai alpha (0.5) untuk mengatur tingkat kegelapan */
 }
 
 .container.kotak {
+    position: relative;
     padding: 20px;
     border-radius: 15px;
     width: 40%;
     height: fit-content;
-    border: 3px solid var(--warna1);
-    background-color: var(--warna2);
-    color: white;
+    border: 3px solid var(--hijau);
+    background-color: var(--hijaumudah);
+    color: var(--hijau);
 }
 
 .container.kotak h1 {
@@ -39,13 +55,15 @@ body {
 
 .container.kotak button.btn {
     width: 50%;
+    background-color: var(--hijau);
+    color: white;
 }
 
-@media only screen and (max-width: 425px) {
-    .container.kotak{
-        width: 85%
+@media only screen and (max-width: 768px) {
+    .container.kotak {
+        width: 85%;
     }
-    .container.kotak h1{
+    .container.kotak h1 {
         text-align: center;
         font-size: calc(1.375rem + 1vw);
     }

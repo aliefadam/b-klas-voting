@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-
+    <link rel="icon" href="../img/1692899163617.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>B-KLAS GOT TALENTS | DAFTAR PESERTA</title>
@@ -66,9 +66,24 @@
     </nav>
     <!-- akhir navbar -->
 
+    <?php if (isset($_SESSION['notifikasi'])): ?>
+        <?php $pesan = $_SESSION['notifikasi']; ?>
+        <script>
+            Swal.fire({
+                title: 'Sukses!',
+                text: "<?= $pesan ?>",
+                icon: 'success',
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Baik',
+            });
+        </script>
+        <?php $_SESSION['notifikasi'] = []; ?>
+    <?php endif; ?>
+
     <!-- content -->
     <div class="container kotak">
-        <div class="daftar-peserta">
+        <div class="daftar-peserta shadow">
             <div class="header mt-2">
                 <div class="item"></div>
                 <div class="item">
@@ -129,28 +144,29 @@
     <div class="editPeserta animate__animated animate__fadeIn">
         <div class="wrap animate__animated animate__pulse">
             <h2>Edit Peserta</h2>
-            <i class="bi bi-x-circle" onclick="tutup('edit')"></i>
+            <i class="close bi bi-x-circle" onclick="tutup('edit')"></i>
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="editId">
                 <div class="mt-3">
                     <label class="form-label" for="editNama">Nama: </label>
-                    <input class="form-control" type="text" name="nama" id="editNama">
+                    <input required class="form-control" type="text" name="nama" id="editNama">
                 </div>
                 <div class="mt-3">
                     <label class="form-label" for="editDawis">Dawis: </label>
-                    <input class="form-control" type="number" name="dawis" id="editDawis">
+                    <input required class="form-control" type="number" name="dawis" id="editDawis">
                 </div>
                 <div class="mt-3">
                     <label class="form-label" for="editPenampilan">Penampilan: </label>
-                    <input class="form-control" type="text" name="penampilan" id="editPenampilan">
+                    <input required class="form-control" type="text" name="penampilan" id="editPenampilan">
                 </div>
                 <div class="mt-3 foto">
-                    <label class="form-label" for="editFoto">Foto: </label>
+                    <label class="form-label" for="editFoto">Foto Lama: </label>
                     <img class="mb-3" id="fotoLama" src="" alt="">
                     <input class="form-control" type="file" name="foto" id="editFoto">
                 </div>
-                <div class="mt-4">
-                    <button class="btn btn-primary" type="submit" name="edit">Edit</button>
+                <div class="mt-3">
+                    <button class="btn" type="submit" name="edit"><i class="me-1 logo-simpan bi bi-save"></i>
+                        Simpan</button>
                 </div>
             </form>
         </div>
@@ -196,7 +212,20 @@
         }
 
         function hapus() {
-            window.location.href = "../functions/index.php?nama-hapus=" + nama;
+            Swal.fire({
+                title: 'Apakah yakin?',
+                text: "Ingin menghapus peserta ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../functions/index.php?nama-hapus=" + nama;
+                }
+            })
         }
 
         function edit() {

@@ -2,8 +2,8 @@
 
 session_start();
 
-// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-$koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
+$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+// $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -26,6 +26,7 @@ function tambahPeserta($data, $data_gambar)
 
     $stmt->bind_param("sisss", $nama, $dawis, $penampilan, $namaFoto, $status);
     $stmt->execute();
+    $_SESSION['notifikasi'] = "Berhasil menambah peserta";
     header("Location: ../admin/tambah-peserta.php");
 }
 
@@ -101,7 +102,7 @@ function hapus($nama)
 
     $stmt->bind_param("s", $nama);
     $stmt->execute();
-
+    $_SESSION['notifikasi'] = "Berhasil menghapus peserta";
     header('Location: ../admin/daftar-peserta.php');
 }
 
@@ -126,7 +127,6 @@ function edit($data)
     }
     // ketika user melakukan edit foto
     else {
-
 
         $ekstensiFoto = $_FILES['foto']['name'];
         $ekstensiFoto = explode(".", $ekstensiFoto);
@@ -155,7 +155,6 @@ function edit($data)
         $stmt->bind_param("sisss", $nama, $dawis, $penampilan, $namaFoto, $id);
         $stmt->execute();
     }
-
 
     header('Location: ../admin/daftar-peserta.php');
 
@@ -444,6 +443,42 @@ function dataPenilaianPeserta()
 
     return $dataPenilaian;
 }
+
+function dataPenilaianPesertaWhere($keyword)
+{
+    global $koneksi;
+
+    $query = "SELECT 
+                p.id_peserta,
+                peserta.nama AS nama_peserta,
+                SUM(p.skor) AS total_skor,
+                ROUND(AVG(p.skor), 1) AS rata_rata_skor,
+                COUNT(p.id_user) AS jumlah_vote
+              FROM 
+                penilaian p
+              JOIN
+                peserta ON p.id_peserta = peserta.id
+              WHERE 
+                peserta.nama LIKE '%$keyword%' OR
+                p.id_peserta LIKE '%$keyword%' OR
+                p.skor LIKE '%$keyword%' OR
+                p.id_user LIKE '%$keyword%'
+              GROUP BY
+                p.id_peserta
+              ORDER BY rata_rata_skor DESC";
+
+    $result = $koneksi->query($query);
+    $dataPenilaian = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $dataPenilaian[] = $row;
+        }
+    }
+
+    return $dataPenilaian;
+}
+
 
 function registerUser($username, $password)
 {

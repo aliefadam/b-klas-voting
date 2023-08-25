@@ -38,7 +38,7 @@
                 <input type="text" name="nama" id="nama" class="form-control">
             </div>
             <div class="mt-4 item">
-                <button class="btn btn-masuk btn-success" name="masuk">Masuk</button>
+                <button class="btn btn-masuk" name="masuk"><i class="me-1 bi bi-box-arrow-in-right"></i> Masuk</button>
             </div>
         </form>
     </div>
