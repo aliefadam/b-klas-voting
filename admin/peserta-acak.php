@@ -1,7 +1,7 @@
 <?php
 
-$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-// $koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
+// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+$koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
 
 
 $query = "SELECT * FROM peserta WHERE status = 'Belum ditampilkan' ORDER BY RAND() LIMIT 1";
@@ -18,6 +18,5 @@ if ($result->num_rows > 0) {
     echo "<button type='button' class='btn btn-success tampilkan' onclick='tampilkan(\"" . $row['id'] . "\")'>Tampilkan</button>";
     echo "</div>";
 }
-
 
 ?>

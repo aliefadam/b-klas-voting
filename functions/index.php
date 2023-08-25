@@ -2,8 +2,8 @@
 
 session_start();
 
-$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-// $koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
+// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+$koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
