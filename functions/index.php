@@ -2,8 +2,8 @@
 
 session_start();
 
-$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-// $koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
+// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+$koneksi = new mysqli("sql210.infinityfree.com", "if0_34881428", "5xXJ3K5mZAo", "if0_34881428_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -274,15 +274,47 @@ function masuk($data)
 
     $nama = $data['nama'];
 
+    $nama_baru = tambahkanAngkaJikaNamaSudahAda($koneksi, $nama);
+
     $query = "INSERT INTO user VALUES (NULL, ?)";
     $stmt = $koneksi->prepare($query);
 
-    $stmt->bind_param("s", $nama);
+    $stmt->bind_param("s", $nama_baru);
     $stmt->execute();
 
-    setcookie("nama", hash("sha256", $nama), time() + 86400, "/");
+    setcookie("nama", hash("sha256", $nama_baru), time() + 86400, "/");
     header("Location: index.php");
 }
+
+function tambahkanAngkaJikaNamaSudahAda($koneksi, $nama)
+{
+    $query = "SELECT nama FROM user WHERE nama = ?";
+    $stmt = $koneksi->prepare($query);
+    $stmt->bind_param("s", $nama);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows() > 0) {
+        $counter = 1;
+        while (true) {
+            $nama_baru = $nama . "_" . $counter;
+            $query = "SELECT nama FROM user WHERE nama = ?";
+            $stmt = $koneksi->prepare($query);
+            $stmt->bind_param("s", $nama_baru);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows() == 0) {
+                return $nama_baru;
+            }
+
+            $counter++;
+        }
+    } else {
+        return $nama;
+    }
+}
+
 
 function cekMasuk()
 {
