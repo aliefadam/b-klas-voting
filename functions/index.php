@@ -2,8 +2,8 @@
 
 session_start();
 
-// $koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
-$koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
+$koneksi = new mysqli("localhost", "root", "", "b-klas-voting");
+//$koneksi = new mysqli("sql300.infinityfree.com", "if0_34893989", "NKZNR1q2xH", "if0_34893989_b_klas");
 
 function tambahPeserta($data, $data_gambar)
 {
@@ -565,6 +565,14 @@ if (isset($_GET['id-peserta'])) {
     $komentar = $_GET['komentar'];
 
     beriUlasan($namaUser, $idPeserta, $skor, $komentar);
+}
+
+if (isset($_POST['create-admin'])){
+    if ($_POST["password"] === $_POST["verifyPassword"]){
+        registerUser($_POST["username"], $_POST["password"]);
+        $_POST = array();
+    }
+   
 }
 
 if (isset($_POST['login-admin'])) {
